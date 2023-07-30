@@ -1,10 +1,12 @@
-const { createCanvas } = require("canvas");
 const fs = require("fs");
+const path = require("path");
+const { createCanvas } = require("canvas");
 const prettier = require("prettier");
 const { constants } = require("./constants");
 const defaultParser = require("./parsers-default");
 
 async function generateImage(codeId, code, title, parser, customTheme = {}) {
+  const IMAGE_SERVER_PATH = `images/source_code_image-${codeId}.png`;
   const {
     bgColor = "#272822",
     textColor = "#F8F8F2",
@@ -127,7 +129,7 @@ async function generateImage(codeId, code, title, parser, customTheme = {}) {
   // Draw the source code image onto the target canvas
   targetCtx.drawImage(sourceCanvas, 0, 0);
 
-  const imageSourcePath = `images/source_code_image-${codeId}.png`;
+  const imageSourcePath = path.join(__dirname, IMAGE_SERVER_PATH);
   // Save the image to a file
   const out = fs.createWriteStream(imageSourcePath);
 
@@ -138,12 +140,19 @@ async function generateImage(codeId, code, title, parser, customTheme = {}) {
     out.on("finish", () => {
       const imageBuffer = fs.readFileSync(imageSourcePath);
       const base64 = imageBuffer.toString("base64");
+      console.log("MIMEOGRAFO CRIADO", {
+        codeId,
+        code,
+        title,
+        base64: base64.substring(0, 80),
+        imageURI: `${constants.apiURL}/${IMAGE_SERVER_PATH}`,
+      });
       resolve({
         codeId,
         code,
         title,
         base64,
-        imageURI: `${constants.apiURL}/images/source_code_image-${codeId}.png`,
+        imageURI: `${constants.apiURL}/${IMAGE_SERVER_PATH}`,
       });
     });
   });

@@ -3,7 +3,6 @@ const constants = {
   sentryDNS: process.env.SENTRY_DNS,
 };
 
-constants.apiURL =
-  `${process.env.BASE_URL}` ?? `http://localhost:${constants.port}`;
+constants.apiURL = process.env.BASE_URL ?? `http://localhost:${constants.port}`;
 
 module.exports = { constants };

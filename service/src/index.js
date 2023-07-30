@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const generateImage = require("./generate-image");
 const { constants } = require("./constants");
 const Sentry = require("@sentry/node");
+const crypto = require("crypto");
+const cron = require("node-cron");
 
 const app = express();
 
@@ -61,19 +63,18 @@ app.get("/health", async (req, res) => {
 });
 
 app.post("/v1/code", async (req, res) => {
+  const codeId = crypto.randomBytes(16).toString("hex");
+  const { code, title, parser } = req.body;
+
+  if (!code || !title || parser === "Selecione um parser") {
+    return res.status(400).json({
+      error: "Deu ruim! Precisa preencher os campos code, title ou parser.",
+    });
+  }
+
   try {
-    const { code, title, parser } = req.body;
-
-    if (!code || !title || !parser) {
-      return res.status(400).json({
-        error:
-          'Bad request! Empty code, title or parser. { code: "", title: "", parser: "" }, or missing properties.',
-      });
-    }
-
-    const imageId = Date.now();
     const generatedImageId = await generateImage(
-      imageId,
+      codeId,
       code,
       title,
       parser,
@@ -82,8 +83,22 @@ app.post("/v1/code", async (req, res) => {
 
     res.status(200).json(generatedImageId);
   } catch (err) {
-    console.error("Error generating image:", err);
-    res.status(500).json({ error: "Failed to generate image." });
+    if (
+      err.message ===
+      "No parser and no file path given, couldn't infer a parser."
+    ) {
+      return res.status(400).json({
+        error: "Deu ruim! Precisa preencher os campos code, title ou parser.",
+      });
+    }
+    res.status(400).json({
+      codeId,
+      code,
+      title,
+      parser,
+      errorMessage: err.cause.msg,
+      errorTrace: err,
+    });
   }
 });
 
@@ -91,13 +106,15 @@ app.get("/v1/image", (req, res) => {
   const { code } = req.query;
 
   if (!code) {
-    return res.status(400).send("Precisa enviar o code da imagem. ?code=id");
+    return res
+      .status(400)
+      .send("Precisa enviar o code da imagem. /v1/image?code=code_id");
   }
 
   const imagePath = path.join(
     __dirname,
     "images",
-    `source_code_image-${code}.jpg`
+    `source_code_image-${code}.png`
   );
 
   fs.readFile(imagePath, (err, data) => {
@@ -122,5 +139,25 @@ app.use(function onError(err, req, res, next) {
 });
 
 app.listen(constants.port, () => {
+  // Cron job to delete images every 1 minutes
+  cron.schedule("*/15 * * * *", () => {
+    fs.readdir(`${__dirname}/images`, (err, files) => {
+      if (err) {
+        console.error("Error reading images directory:", err);
+        return;
+      }
+
+      files.forEach((file) => {
+        const imageFilePath = path.join(__dirname, "/images", file);
+        fs.unlink(imageFilePath, (err) => {
+          if (err) {
+            console.error("Error deleting image:", err);
+          } else {
+            console.log("Image file has been deleted:", imageFilePath);
+          }
+        });
+      });
+    });
+  });
   console.log(`API server listening on port ${constants.port}`);
 });
