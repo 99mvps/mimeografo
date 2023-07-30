@@ -1,5 +1,6 @@
 const constants = {
   port: process.env.PORT ?? 8080,
+  sentryDNS: process.env.SENTRY_DNS,
 };
 
 constants.apiURL =

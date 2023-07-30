@@ -5,8 +5,25 @@ const cors = require("cors");
 const morgan = require("morgan");
 const generateImage = require("./generate-image");
 const { constants } = require("./constants");
+const Sentry = require("@sentry/node");
 
 const app = express();
+
+Sentry.init({
+  dsn: constants.sentryDNS,
+  integrations: [
+    // enable HTTP calls tracing
+    new Sentry.Integrations.Http({
+      tracing: true,
+    }),
+    // enable Express.js middleware tracing
+    new Sentry.Integrations.Express({
+      app,
+    }),
+  ],
+  // Performance Monitoring
+  tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!,
+});
 
 app.use(morgan("dev"));
 
@@ -14,6 +31,10 @@ const customTheme = {};
 
 app.use(cors());
 app.use(express.json());
+
+// Trace incoming requests
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
@@ -31,7 +52,6 @@ app.get("/", (req, res) => {
 
 app.get("/health", async (req, res) => {
   const ping = req.query.ping;
-
   res.status(200).json({
     status: "ok",
     serverChallengeResponse: ping,
@@ -84,10 +104,21 @@ app.get("/v1/image", (req, res) => {
     if (err) {
       res.status(500).send("Internal Server Error" + err.message);
     } else {
-      res.writeHead(200, { "Content-Type": "image/jpeg" });
+      res.writeHead(200, { "Content-Type": "image/png" });
       res.end(data);
     }
   });
+});
+
+// The error handler must be registered before any other error middleware and after all controllers
+app.use(Sentry.Handlers.errorHandler());
+
+// Optional fallthrough error handler
+app.use(function onError(err, req, res, next) {
+  // The error id is attached to `res.sentry` to be returned
+  // and optionally displayed to the user for support.
+  res.statusCode = 500;
+  res.end(res.sentry + "\n");
 });
 
 app.listen(constants.port, () => {
