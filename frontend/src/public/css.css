@@ -246,6 +246,8 @@ button:hover {
 	opacity: 0;
 	transition: opacity 0.3s ease, transform 0.3s ease;
 	width: 60%;
+	height: 780px;
+	overflow-y: scroll;
 }
 #dialog-pix.active {
 	opacity: 1;
@@ -265,6 +267,8 @@ button:hover {
 	opacity: 0;
 	transition: opacity 0.3s ease, transform 0.3s ease;
 	width: 60%;
+	height: 780px;
+	overflow-y: scroll;
 }
 #dialog-docs.active {
 	opacity: 1;
