@@ -1,9 +1,12 @@
 const fs = require("fs");
 const path = require("path");
-const { createCanvas } = require("canvas");
+const { createCanvas, registerFont } = require("canvas");
 const prettier = require("prettier");
 const { constants } = require("./constants");
 const defaultParser = require("./parsers-default");
+
+const fontPath = path.join(__dirname, "fonts", "FiraCode_regular.ttf");
+registerFont(fontPath, { family: "FireCode" });
 
 async function generateImage(codeId, code, title, parser, customTheme = {}) {
   const IMAGE_SERVER_PATH = `images/source_code_image-${codeId}.png`;
@@ -112,14 +115,14 @@ async function generateImage(codeId, code, title, parser, customTheme = {}) {
   sourceCtx.fillStyle = "#000"; // Black color for the close icon
   sourceCtx.textAlign = "center";
   sourceCtx.textBaseline = "middle";
-  sourceCtx.font = `bold ${closeIconSize}px Arial`;
+  sourceCtx.font = `bold ${closeIconSize}px FiraCode`;
   sourceCtx.fillText("X", closeIconX, closeIconY);
 
   // Draw the title
   sourceCtx.fillStyle = "#000"; // Black color for the title
   sourceCtx.textAlign = "center";
   sourceCtx.textBaseline = "middle";
-  sourceCtx.font = `bold ${fontHeight}px Arial`;
+  sourceCtx.font = `bold ${fontHeight}px FiraCode`;
   sourceCtx.fillText(title, canvasWidth / 2, topBarHeight / 2);
 
   // Create a new canvas with the final dimensions including the border and close icon
