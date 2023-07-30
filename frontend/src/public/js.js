@@ -1,6 +1,5 @@
 const $ = (element) => document.querySelector(element);
-// const apiURL = "https://mimeografo-api.onrender.com";
-const apiURL = "http://localhost:8080";
+const apiURL = "https://mimeografo-api.onrender.com";
 
 function initial() {
   const buttons = document.querySelectorAll(".tooltip-btn");
