@@ -1,10 +1,31 @@
 const $ = (element) => document.querySelector(element);
 const apiURL = "https://mimeografo-api.onrender.com";
 
-const sendImageCreationRequest = () => {
+function loaderHandler({ hideElement }) {
+  const loaderDisplay = $("#spinner-loader");
+  const hiddenElementDisplay = $(hideElement);
+
+  if (loaderDisplay.style.display === "none") {
+    loaderDisplay.style.display = "block";
+  } else {
+    loaderDisplay.style.display = "none";
+  }
+
+  if (hiddenElementDisplay.style.display === "none") {
+    hiddenElementDisplay.style.display = "block";
+  } else {
+    hiddenElementDisplay.style.display = "none";
+  }
+}
+
+const createImage = () => {
   const code = $("#codeInput").value;
   const title = $("#codeTitle").value;
   const parser = $("#codeParser").value;
+
+  loaderHandler({
+    hideElement: "#code-image",
+  });
 
   fetch(`${apiURL}/v1/code`, {
     method: "POST",
@@ -23,6 +44,9 @@ const sendImageCreationRequest = () => {
           message: r.error,
           timer: 4500,
         });
+        loaderHandler({
+          hideElement: "#code-image",
+        });
       }
     })
     .catch((error) => {
@@ -37,6 +61,10 @@ async function loadImage({ base64, imageURI }) {
   showToast({
     message: "Mimeografagem gerada com sucesso!",
   });
+  loaderHandler({
+    hideElement: "#code-image",
+  });
+
   $("#code-image").src = imageURI;
   $("#code-image-base64").src = `data:image/png;base64,${base64}`;
 }
@@ -160,35 +188,6 @@ function hideTooltip() {
 
   // Remove the 'show' class to hide the tooltip
   tooltip.classList.remove("show");
-}
-
-function createImage() {
-  const codeTitleInput = $("#codeTitle");
-  const codeParserSelect = $("#codeParser");
-  const codeInputTextarea = $("#codeInput");
-
-  // if (!codeTitleInput.checkValidity()) {
-  //   showToast({
-  //     message: "Por favor, informe um título.",
-  //   });
-  //   return;
-  // }
-
-  // if (codeParserSelect.value === "Selecione um parser") {
-  //   showToast({
-  //     message: "Por favor, selecione um parser.",
-  //   });
-  //   return;
-  // }
-
-  // if (!codeInputTextarea.value) {
-  //   showToast({
-  //     message: "Sim, cadê o código?",
-  //   });
-  //   return;
-  // }
-
-  sendImageCreationRequest();
 }
 
 function initial() {

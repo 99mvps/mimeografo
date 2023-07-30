@@ -25,7 +25,6 @@ app.get("/health", async (req, res) => {
   const ping = Date.now();
   const apiURL = new URL("/health", constants.apiURL);
   apiURL.searchParams.append("ping", ping);
-
   fetch(apiURL, {
     method: "GET",
     headers: {
@@ -47,6 +46,14 @@ app.get("/health", async (req, res) => {
       return res.status(200).json({
         status: "ok",
         externalService: "available",
+        timestamp: Date.now(),
+        version: "1.0.0",
+      });
+    })
+    .catch((error) => {
+      return res.status(500).json({
+        status: "dead-server",
+        externalService: "unavailable: " + error.message,
         timestamp: Date.now(),
         version: "1.0.0",
       });

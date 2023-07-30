@@ -17,7 +17,7 @@
 </script>
 </head>
 
-<body onload="initial()">
+<body onload="initial()">	
 	<div class="toast" id="toastMessage">Hello, this is a simple toast message!</div>
 	<div class="container-logo">
 		<svg xmlns="http://www.w3.org/2000/svg" width="600" height="150" viewBox="0 0 600 150">
@@ -68,6 +68,41 @@
 		</div>
 		<div class="container code-image-container">
 			<img src="" id="code-image" alt="Generated Code Image">
+			<div id="spinner-loader" style="display: none;">
+			<svg width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+				<style>
+					.spinner {
+						animation: spinner 0.8s infinite;
+					}
+			
+					@keyframes spinner {
+						0% {
+							animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+							cy: 5px;
+						}
+						46.875% {
+							cy: 20px;
+							rx: 4px;
+							ry: 4px;
+						}
+						50% {
+							animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+							cy: 20.5px;
+							rx: 4.8px;
+							ry: 3px;
+						}
+						53.125% {
+							rx: 4px;
+							ry: 4px;
+						}
+						100% {
+							cy: 5px;
+						}
+					}
+				</style>
+				<ellipse class="spinner" cx="12" cy="5" rx="4" ry="4" />
+			</svg>
+		</div>
 			<img src="" id="code-image-base64">
 			<div class="buttons-container">
 				<div class="tooltip"></div>
