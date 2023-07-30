@@ -1,0 +1,5 @@
+frontend/node_modules/*
+
+service/node_modules/*
+service/src/images/*
+!service/src/images/.gitkeep

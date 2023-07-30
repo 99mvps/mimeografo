@@ -1,0 +1,201 @@
+/* styles.css */
+
+/* Reset some default styles to improve consistency */
+html, body, h1, h2, h3, p, ul, li, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Basic styling for the page container */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Additional styles for the header */
+.header {
+  background-color: #f2f2f2;
+  text-align: center;
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.header-text {
+  font-size: 12px;
+}
+
+/* Styling for the row containers */
+.container-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+}
+
+/* Styling for the row containers */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+input,
+textarea,
+button, select {
+  margin: 8px 0px;
+  padding: 10px;
+  border: 1px solid #ccc;
+	background-color: #fff;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.centered-text {
+  text-align: center;
+  color: #666;
+}
+
+/* Adjusted positioning for the code image container */
+.code-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+#code-image {
+  max-width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* display: none; */
+}
+
+/* ... Your existing CSS styles ... */
+
+/* Styling for the container holding the form and code image */
+.content-container {
+  display: flex; /* Use flexbox to arrange the two child elements horizontally */
+}
+
+/* Style for the form container */
+.form-container {
+  flex: 1; /* Take up 50% of the width */
+}
+
+/* Style for the code image container */
+.code-image-container {
+  flex: 1; /* Take up 50% of the width */
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.buttons-container {
+	display: flex;
+}
+
+
+/* Styles for form input container */
+.form-inputs {
+  display: flex;
+}
+
+/* Styles for form inputs */
+.form-inputs input {
+  width: 380px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-inputs select {
+  width: 200px;
+  margin: 8px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Styles for the toast container */
+.toast {
+	position: fixed;
+	visibility: hidden;
+	top: 160px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #333;
+	color: #fff;
+	border: 1px solid yellow;
+	padding: 12px 24px;
+	border-radius: 8px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	z-index: 1;
+}
+
+/* Show the toast message */
+.toast.show {
+	opacity: 1;
+	visibility: visible;
+}
+
+#code-image-base64 {
+	display: none;
+}
+
+
+.link-container {
+	display: flex;
+	justify-content: flex-end;
+	width: 100%;
+	margin-top: 8px;
+}
+
+.parsers-link {
+	color: #007bff;
+	text-decoration: none;
+}
+
+/* Tooltip container styles */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Tooltip container styles for when it's visible */
+.tooltip.show {
+  visibility: visible;
+  opacity: 1;
+}

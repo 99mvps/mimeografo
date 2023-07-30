@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>mimeógrafo.codes</title>
+	<link rel="stylesheet" href="./css.css">
+	<script src="./js.js"></script>
+	<script src="https://kit.fontawesome.com/b9ae129dcf.js" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "i76wpeelyy");
+</script>
+</head>
+
+<body onload="initial()">
+	<div class="toast" id="toastMessage">Hello, this is a simple toast message!</div>
+	<div class="container-logo">
+		<svg xmlns="http://www.w3.org/2000/svg" width="600" height="150" viewBox="0 0 600 150">
+			<text x="50%" y="50%" fill="none" font-size="96" font-family="Arial" text-anchor="middle"
+				dominant-baseline="middle" stroke="yellow" stroke-width="2">mimeógrafo</text>
+		</svg>
+	</div>
+	<h2 class="centered-text">Crie uma mimeografagem do seu código e compartilhe com amigos!</h2>
+	<div class="content-container">
+		<div class="container form-container">
+			<div class="form-inputs">
+				<input type="text" required="Precisa preencher o campo." id="codeTitle" placeholder="Enter title here">
+				<select id="codeParser" required>
+					<option>Selecione um parser</options>
+					<option value="babel">babel</options>
+					<option value="babel-flo">babel-flo</options>
+					<option value="babel-t">babel-t</options>
+					<option value="flow">flow</options>
+					<option value="typescript">typescript</options>
+					<option value="espree">espree</options>
+					<option value="meriyah">meriyah</options>
+					<option value="acorn">acorn</options>
+					<option value="css">css</options>
+					<option value="scss">scss</options>
+					<option value="less">less</options>
+					<option value="json">json</options>
+					<option value="json5">json5</options>
+					<option value="json-stringif">json-stringif</options>
+					<option value="graphql">graphql</options>
+					<option value="markdown">markdown</options>
+					<option value="mdx">mdx</options>
+					<option value="html">html</options>
+					<option value="vue">vue</options>
+					<option value="angular">angular</options>
+					<option value="lwc">lwc</options>
+					<option value="yaml">yaml</option>
+				</select>
+			</div>
+			<div class="link-container">
+        <small>
+          <a class="parsers-link" href="https://prettier.io/docs/en/options.html#parser" target="_blank">https://prettier.io/docs/en/options.html#parser</a>
+        </small>
+      </div>
+			<textarea rows="20" cols="10" id="codeInput" placeholder="/*** Digite seu código ***/"></textarea>
+			<button onclick="createImage()">
+				Mimeografar
+			</button>
+		</div>
+		<div class="container code-image-container">
+			<img src="" id="code-image" alt="Generated Code Image">
+			<img src="" id="code-image-base64">
+			<div class="buttons-container">
+				<div class="tooltip"></div>
+				<button class="tooltip-btn" data-tooltip="Copiar imagem para o clipboard." onclick="copyImageToClipboard()"><i class="fa-regular fa-image"></i></button>
+				<button class="tooltip-btn" data-tooltip="Copiar imagem Base64 para o clipboard." onclick="copyBase64Image()"><i class="fa-solid fa-file-code"></i></button>
+				<button class="tooltip-btn" data-tooltip="Compartilhe com seus colegas!"  onclick="shareImage()"><i class="fas fa-share-alt"></i></button>
+				<button class="tooltip-btn" data-tooltip="Abrir em uma nova aba." onclick="openImageInNewTab()"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="container header">
+		<p class="header-text">
+			Mimeógrafo (do grego mimeo: imitar, copiar + grafia: escrita) é um instrumento utilizado para
+			fazer cópias de papel escrito em grande escala e utiliza na reprodução um tipo de papel chamado estêncil.
+			Foi um dos primeiros sistemas de cópias em série utilizados no ensino.
+		</p>
+	</div>
+</body>
+
+</html>
