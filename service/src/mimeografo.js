@@ -8,7 +8,7 @@ const defaultParser = require("./parsers-default");
 const fontPath = path.join(__dirname, "fonts", "FiraCode_regular.ttf");
 registerFont(fontPath, { family: "FireCode" });
 
-async function generateImage(codeId, code, title, parser, customTheme = {}) {
+async function mimeografo(codeId, code, title, parser, customTheme = {}) {
   const IMAGE_SERVER_PATH = `images/source_code_image-${codeId}.png`;
   const {
     bgColor = "#272822",
@@ -161,4 +161,4 @@ async function generateImage(codeId, code, title, parser, customTheme = {}) {
   });
 }
 
-module.exports = generateImage;
+module.exports = mimeografo;
