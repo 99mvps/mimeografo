@@ -12,9 +12,7 @@ const cron = require("node-cron");
 const app = express();
 
 Sentry.init({
-  dsn:
-    constants.sentryDNS ??
-    "https://6bb017e24076431f0d4942829cc55788@o4505618664718336.ingest.sentry.io/4505618666946560",
+  dsn: constants.sentryDNS,
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({
