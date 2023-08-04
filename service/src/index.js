@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
 const morgan = require("morgan");
-const generateImage = require("./generate-image");
+const mimeografo = require("./mimeografo");
 const { constants } = require("./constants");
 const Sentry = require("@sentry/node");
 const crypto = require("crypto");
@@ -23,9 +23,13 @@ Sentry.init({
       app,
     }),
   ],
+  debug: true,
   // Performance Monitoring
   tracesSampleRate: 1.0, // Capture 100% of the transactions, reduce in production!,
 });
+
+app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
 
 app.use(morgan("dev"));
 
@@ -33,10 +37,6 @@ const customTheme = {};
 
 app.use(cors());
 app.use(express.json());
-
-// Trace incoming requests
-app.use(Sentry.Handlers.requestHandler());
-app.use(Sentry.Handlers.tracingHandler());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
@@ -67,22 +67,18 @@ app.post("/v1/code", async (req, res) => {
   const { code, title, parser } = req.body;
 
   if (!code || !title || parser === "Selecione um parser") {
+    Sentry.captureMessage("PARSER_NOT_SELECTED");
     return res.status(400).json({
       error: "Deu ruim! Precisa preencher os campos code, title ou parser.",
     });
   }
 
   try {
-    const generatedImageId = await generateImage(
-      codeId,
-      code,
-      title,
-      parser,
-      customTheme
-    );
+    const mime = await mimeografo(codeId, code, title, parser, customTheme);
 
-    res.status(200).json(generatedImageId);
+    res.status(200).json(mime);
   } catch (err) {
+    Sentry.captureException(err);
     if (
       err.message ===
       "No parser and no file path given, couldn't infer a parser."
@@ -106,6 +102,7 @@ app.get("/v1/image", (req, res) => {
   const { code } = req.query;
 
   if (!code) {
+    Sentry.captureMessage("CODE_NOT_SENT");
     return res
       .status(400)
       .send("Precisa enviar o code da imagem. /v1/image?code=code_id");
@@ -119,7 +116,8 @@ app.get("/v1/image", (req, res) => {
 
   fs.readFile(imagePath, (err, data) => {
     if (err) {
-      res.status(500).send("Internal Server Error" + err.message);
+      Sentry.captureException(err);
+      res.status(500).send("Internal Server Error");
     } else {
       res.writeHead(200, { "Content-Type": "image/png" });
       res.end(data);
@@ -139,7 +137,7 @@ app.use(function onError(err, req, res, next) {
 });
 
 app.listen(constants.port, () => {
-  // Cron job to delete images every 1 minutes
+  // Cron job to delete images every 15 minutes
   cron.schedule("*/15 * * * *", () => {
     fs.readdir(`${__dirname}/images`, (err, files) => {
       if (err) {
