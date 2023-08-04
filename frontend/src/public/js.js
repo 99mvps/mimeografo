@@ -139,7 +139,7 @@ const copyImageToClipboard = async () => {
           message:
             "Não dá pra pegar o gatinho 😿 <br>\
 						<br><br>\
-						Visite: <a target='_blank' class='toast-clipboard-error' href='http://placekitten.com'>http://placekitten.com</a> para mais gatinhos 🐱",
+						Visite: <a target='_blank' class='toast-clipboard-error' href='https://placekitten.com'>https://placekitten.com</a> para mais gatinhos 🐱",
           timer: 4800,
         });
       }
