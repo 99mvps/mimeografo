@@ -123,7 +123,7 @@ async function mimeografo(codeId, code, title, parser, customTheme = {}) {
   sourceCtx.textAlign = "center";
   sourceCtx.textBaseline = "middle";
   sourceCtx.font = `bold ${fontHeight}px FiraCode`;
-  sourceCtx.fillText(title, canvasWidth / 2, topBarHeight / 2);
+  sourceCtx.fillText(title || "Untitled1", canvasWidth / 2, topBarHeight / 2);
 
   // Create a new canvas with the final dimensions including the border and close icon
   const targetCanvas = createCanvas(sourceCanvas.width, sourceCanvas.height);

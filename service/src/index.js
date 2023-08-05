@@ -10,6 +10,7 @@ const crypto = require("crypto");
 const cron = require("node-cron");
 
 const app = express();
+const customTheme = {};
 
 Sentry.init({
   dsn: constants.sentryDNS,
@@ -33,9 +34,11 @@ app.use(Sentry.Handlers.tracingHandler());
 
 app.use(morgan("dev"));
 
-const customTheme = {};
-
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://mimeografo.codes",
+  })
+);
 app.use(express.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
@@ -66,7 +69,7 @@ app.post("/v1/code", async (req, res) => {
   const codeId = crypto.randomBytes(16).toString("hex");
   const { code, title, parser } = req.body;
 
-  if (!code || !title || parser === "Selecione um parser") {
+  if (!code || parser === "Selecione um parser") {
     Sentry.captureMessage("PARSER_NOT_SELECTED");
     return res.status(400).json({
       error: "Deu ruim! Precisa preencher os campos code, title ou parser.",
