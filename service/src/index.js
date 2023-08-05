@@ -36,9 +36,15 @@ app.use(morgan("dev"));
 
 app.use(
   cors({
-    origin: "https://mimeografo.codes",
+    origin: function (origin, callback) {
+      callback(
+        null,
+        ["https://mimeografo.codes", "http://localhost:3000"].includes(origin)
+      );
+    },
   })
 );
+
 app.use(express.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
