@@ -108,8 +108,10 @@ async function loadImage({ base64, imageURI }) {
   loaderHandler({
     hideElement: "#code-image",
   });
+  const codeImage = $("#code-image");
 
-  $("#code-image").src = imageURI;
+  codeImage.src = imageURI;
+  codeImage.style.display = "block";
   $("#code-image-base64").src = `data:image/png;base64,${base64}`;
 }
 
@@ -117,15 +119,11 @@ const copyImageToClipboard = async () => {
   const imageUrl = $("#code-image").src;
   // God save the kittens 🐱
   // https://www.youtube.com/watch?v=sP4NMoJcFd4
-  const mimeType = imageUrl.startsWith("http://placekitten.com")
-    ? "image/jpg"
-    : "image/png";
-
   if (imageUrl) {
     try {
       await navigator.clipboard.write([
         new ClipboardItem({
-          [mimeType]: await fetch(imageUrl).then((r) => {
+          "image/png": await fetch(imageUrl).then((r) => {
             showToast({
               message: "Mimeografagem copiada para clipboard",
             });
@@ -134,16 +132,6 @@ const copyImageToClipboard = async () => {
         }),
       ]);
     } catch (error) {
-      if (error instanceof DOMException) {
-        return showToast({
-          message:
-            "Não dá pra pegar o gatinho 😿 <br>\
-						<br><br>\
-						Visite: <a target='_blank' class='toast-clipboard-error' href='https://placekitten.com'>https://placekitten.com</a> para mais gatinhos 🐱",
-          timer: 4800,
-        });
-      }
-
       showToast({
         message:
           "Deu erro em copyImageToClipboard calma aí, pow: " + error.message,
