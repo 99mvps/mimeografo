@@ -159,22 +159,22 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
   );
 
   // Create a new canvas with the final dimensions including the border and close icon
-  const targetCanvas = createCanvas(sourceCanvas.width * 1.25, sourceCanvas.height * 1.25);
+  const targetCanvas = createCanvas(sourceCanvas.width * 1.25, sourceCanvas.height + 145 * 1.25);
   const targetCtx = targetCanvas.getContext('2d');
   targetCtx.fillStyle = color ? `#${color}` : getRandomColor();
 
-  targetCtx.fillRect(0, 0, sourceCanvas.width * 1.25, sourceCanvas.height * 1.25);
-  const x = (targetCanvas.width - sourceCanvas.width) * 0.5;
-  const y = (targetCanvas.height - sourceCanvas.height) * 0.5;
+  targetCtx.fillRect(0, 0, sourceCanvas.width * 1.25, sourceCanvas.height + 145 * 1.25);
 
   const footnoteText = 'https://mimeografo.codes';
   const footnoteTextX = targetCanvas.width - targetCtx.measureText(footnoteText).width - 220;
-  const footnoteTextY = targetCanvas.height - 25;
+  const footnoteTextY = targetCanvas.height - 45;
 
   targetCtx.fillStyle = ['FC8179', '1293C5', '5C30BD'].includes(color) ? '#fff' : '#000'; // Set the text color to black
   targetCtx.font = `${fontHeight}px Monospace`;
   targetCtx.fillText(footnoteText, footnoteTextX, footnoteTextY);
 
+  const x = (targetCanvas.width - sourceCanvas.width) * 0.5;
+  const y = (targetCanvas.height - sourceCanvas.height) * 0.5;
   // Draw the source code image onto the target canvas
   targetCtx.drawImage(sourceCanvas, x, y);
 
