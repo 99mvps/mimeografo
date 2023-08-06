@@ -19,6 +19,13 @@
 		"node": ">=18"
 	},
 	"devDependencies": {
-		"@flydotio/dockerfile": "^0.4.1"
+		"@flydotio/dockerfile": "^0.4.1",
+		"eslint": "^8.46.0",
+		"eslint-config-airbnb-base": "^15.0.0",
+		"eslint-config-standard": "^17.1.0",
+		"eslint-plugin-import": "^2.28.0",
+		"eslint-plugin-n": "^16.0.1",
+		"eslint-plugin-promise": "^6.1.1",
+		"prettier": "3.0.1"
 	}
 }

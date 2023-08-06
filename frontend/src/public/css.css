@@ -145,7 +145,7 @@ button:hover {
 
 /* Styles for form inputs */
 .form-inputs input {
-	width: 380px;
+	width: 170px;
 	margin: 10px;
 	padding: 10px;
 	border: 1px solid #ccc;
@@ -162,6 +162,14 @@ button:hover {
 	font-size: 16px;
 }
 
+.form-inputs select.formCodeBgColor {
+	width: 150px;
+	margin: 8px 0px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+}
 /* Styles for the toast container */
 .toast {
 	position: fixed;
@@ -379,7 +387,7 @@ a.toast-clipboard-error:hover {
 	font-family: monospace;
 	line-height: 21px;
 	border-radius: 2px;
-	padding: 20px 10px;
+	padding: 20px 0px;
 	width: 100%;
 	overflow: hidden; /* Hide any overflowing content */
 }

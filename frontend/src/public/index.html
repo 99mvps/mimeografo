@@ -11,14 +11,7 @@
 	<link rel="manifest" href="/site.webmanifest">
 	<link rel="stylesheet" href="./css.css">
 	<script src="./js.js"></script>
-	<script src="https://kit.fontawesome.com/b9ae129dcf.js" defer crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		(function (c, l, a, r, i, t, y) {
-			c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-			t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-			y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-		})(window, document, "clarity", "script", "i76wpeelyy");
-	</script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8619393342380318" crossorigin="anonymous"></script>
 </head>
 
 <body onload="initial()">
@@ -109,7 +102,7 @@
 	<div class="content-container">
 		<div class="container form-container">
 			<div class="form-inputs">
-				<input type="text" required="Precisa preencher o campo." id="codeTitle" placeholder="Enter title here">
+				<input type="text" required="Precisa preencher o campo." id="codeTitle" placeholder="Título">
 				<select id="codeParser" required>
 					<option>Selecione um parser</option>
 					<option value="babel">babel</option>
@@ -135,7 +128,17 @@
 					<option value="lwc">lwc</option>
 					<option value="yaml">yaml</option>
 				</select>
+				<select id="codeBgColor" class="formCodeBgColor" required>
+					<option>Cor de fundo</option>
+					<option style="background-color: #FC8179;" value="FC8179">#FC8179</option>
+					<option style="background-color: #FFAD00;" value="FFAD00">#FFAD00</option>
+					<option style="background-color: #F2F293;" value="F2F293">#F2F293</option>
+					<option style="background-color: #33CA00;" value="33CA00">#33CA00</option>
+					<option style="background-color: #1293C5;" value="1293C5">#1293C5</option>
+					<option style="background-color: #5C30BD;" value="5C30BD">#5C30BD</option>
+				</select>
 			</div>
+
 			<div class="link-container">
 				<small>
 					<a class="parsers-link" href="https://prettier.io/docs/en/options.html#parser"
@@ -167,8 +170,6 @@
 						class="fa-regular fa-image"></i></button>
 				<button class="tooltip-btn" data-tooltip="Copiar imagem Base64 para o clipboard." onclick="copyBase64Image()"><i
 						class="fa-solid fa-file-code"></i></button>
-				<button class="tooltip-btn" data-tooltip="Compartilhe com seus colegas!" onclick="shareImage()"><i
-						class="fas fa-share-alt"></i></button>
 				<button class="tooltip-btn" data-tooltip="Abrir em uma nova aba." onclick="openImageInNewTab()"><i
 						class="fa-solid fa-arrow-up-right-from-square"></i></button>
 				<button class="tooltip-btn" data-tooltip="Arrume um pixizinho pra esse pobre Diabo :("
@@ -189,5 +190,12 @@
 		</p>
 	</div>
 </body>
-
+<script src="https://kit.fontawesome.com/b9ae129dcf.js" defer crossorigin="anonymous"></script>
+<script type="text/javascript">
+	(function (c, l, a, r, i, t, y) {
+		c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+		t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+		y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+	})(window, document, "clarity", "script", "i76wpeelyy");
+</script>
 </html>
