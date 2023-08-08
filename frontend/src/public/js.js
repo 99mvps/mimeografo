@@ -56,7 +56,7 @@ const createImage = () => {
   const color = $('#codeBgColor').value;
 
   loaderHandler({
-    hideElement: '#code-image',
+    hideElement: '#code-image-wrapper',
   });
 
   fetch(`${apiURL}/v1/code`, {
@@ -77,7 +77,7 @@ const createImage = () => {
         console.log(r, r.errorMessage, r.errorTrace);
         if (r.errorMessage) {
           loaderHandler({
-            hideElement: '#code-image',
+            hideElement: '#code-image-wrapper',
           });
           return showToast({
             message: `Erro a mimeografar! Provavelmente há um erro de sintaxe no seu código.\
@@ -91,7 +91,7 @@ const createImage = () => {
           timer: 4500,
         });
         loaderHandler({
-          hideElement: '#code-image',
+          hideElement: '#code-image-wrapper',
         });
       }
     })
@@ -108,12 +108,14 @@ async function loadImage({ base64, imageURI }) {
     message: 'Mimeografagem gerada com sucesso!',
   });
   loaderHandler({
-    hideElement: '#code-image',
+    hideElement: '#code-image-wrapper',
   });
-  const codeImage = $('#code-image');
-
+  const codeImage = document.createElement('img')
   codeImage.src = imageURI;
-  codeImage.style.display = 'block';
+  codeImage.setAttribute("id", "code-image");
+
+  $('#code-image-wrapper').innerHTML = "";
+  $('#code-image-wrapper').appendChild(codeImage);
   $('#code-image-base64').src = `data:image/png;base64,${base64}`;
 }
 
