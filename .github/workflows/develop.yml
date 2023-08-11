@@ -24,14 +24,14 @@ jobs:
         run: echo "::set-output name=dir::$(pwd)"
 
       - name: Build Frontend
-        if: ${{ steps.dir.outputs.dir }}/frontend # Check if frontend directory exists
+        if: ${{ steps.dir.outputs.dir }}/frontend
         run: |
           cd ${{ steps.dir.outputs.dir }}/frontend
           npm install
           npm run lint # Adjust this command based on your project's setup
 
       - name: Build Service
-        if: ${{ steps.dir.outputs.dir }}/service # Check if service directory exists
+        if: ${{ steps.dir.outputs.dir }}/service
         run: |
           cd ${{ steps.dir.outputs.dir }}/service
           npm install
