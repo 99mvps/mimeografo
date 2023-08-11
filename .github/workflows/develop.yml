@@ -1,4 +1,4 @@
-name: eslint check
+name: build and test
 
 on:
   push:
@@ -6,21 +6,34 @@ on:
       - develop
 
 jobs:
-  eslint-check:
-    name: eslint check
+  build-and-test:
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: setup node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 14
 
-      - name: install dependencies
-        run: npm i 
+      - name: Determine current directory
+        id: dir
+        run: echo "::set-output name=dir::$(pwd)"
 
-      - name: run eslint
-        run: npm run lint # Adjust this command based on your project's setup
+      - name: Build Frontend
+        if: ${{ steps.dir.outputs.dir }}/frontend # Check if frontend directory exists
+        run: |
+          cd ${{ steps.dir.outputs.dir }}/frontend
+          npm install
+          npm run lint # Adjust this command based on your project's setup
+
+      - name: Build Service
+        if: ${{ steps.dir.outputs.dir }}/service # Check if service directory exists
+        run: |
+          cd ${{ steps.dir.outputs.dir }}/service
+          npm install
+          npm run lint # Adjust this command based on your project's setup
+
