@@ -32,24 +32,3 @@ jobs:
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
-  deploy_service:
-    name: deploy service
-    runs-on: ubuntu-latest
-    steps:
-      - name: determine current directory
-        id: dir
-        run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
-
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup flyctl
-        uses: superfly/flyctl-actions/setup-flyctl@v1
-
-      - name: Deploy service
-        if: ${{ steps.dir.outputs.directory }}/service
-        run: |
-          cd "${{ steps.dir.outputs.directory }}/service"
-          flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
