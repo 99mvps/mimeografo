@@ -13,32 +13,34 @@ function drawCloseIcon(sourceCtx, canvasWidth, padding) {
   const closeButtonSize = 20;
   const closeIconX = canvasWidth - padding - closeButtonSize / 2;
   const closeIconY = padding + closeButtonSize / 2;
+  const canvasCtx = sourceCtx;
 
   // Draw a button-like shape
-  sourceCtx.beginPath();
-  sourceCtx.arc(closeIconX, closeIconY, closeButtonSize / 2, 0, 2 * Math.PI);
-  sourceCtx.fillStyle = '#DDD';
-  sourceCtx.fill();
-  sourceCtx.strokeStyle = '#000';
-  sourceCtx.lineWidth = 1.5;
-  sourceCtx.stroke();
+  canvasCtx.beginPath();
+  canvasCtx.arc(closeIconX, closeIconY, closeButtonSize / 2, 0, 2 * Math.PI);
+  canvasCtx.fillStyle = '#DDD';
+  canvasCtx.fill();
+  canvasCtx.strokeStyle = '#000';
+  canvasCtx.lineWidth = 1.5;
+  canvasCtx.stroke();
 
   // Draw an X icon
   const iconSize = closeButtonSize * 0.6;
-  sourceCtx.fillStyle = '#000';
-  sourceCtx.font = `${iconSize}px sans-serif`;
-  sourceCtx.textAlign = 'center';
-  sourceCtx.textBaseline = 'middle';
-  sourceCtx.fillText('X', closeIconX, closeIconY);
+  canvasCtx.fillStyle = '#000';
+  canvasCtx.font = `${iconSize}px sans-serif`;
+  canvasCtx.textAlign = 'center';
+  canvasCtx.textBaseline = 'middle';
+  canvasCtx.fillText('X', closeIconX, closeIconY);
 }
 
 function drawTitle(sourceCtx, canvasWidth, font, topBarHeight, title) {
-  console.log({title})
-    sourceCtx.fillStyle = '#000';
-    sourceCtx.textAlign = 'center';
-    sourceCtx.textBaseline = 'middle';
-    sourceCtx.font = font;
-    sourceCtx.fillText(title || 'Sem Título1', canvasWidth / 2, topBarHeight / 2);
+  console.log({ title });
+  const canvasCtx = sourceCtx;
+  canvasCtx.fillStyle = '#000';
+  canvasCtx.textAlign = 'center';
+  canvasCtx.textBaseline = 'middle';
+  canvasCtx.font = font;
+  canvasCtx.fillText(title || 'Sem Título1', canvasWidth / 2, topBarHeight / 2);
 }
 
 function getRandomColor() {
