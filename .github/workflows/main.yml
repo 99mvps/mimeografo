@@ -1,9 +1,13 @@
 name: fly deploy
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - main
+    condition:
+      - github.event.pull_request.merged == true
 
 jobs:
   deploy_frontend:
@@ -26,5 +30,26 @@ jobs:
           cd "${{ steps.dir.outputs.directory }}/frontend"
           flyctl deploy --remote-only
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_FRONTEND }}
 
+  deploy_service:
+    name: deploy service
+    runs-on: ubuntu-latest
+    steps:
+      - name: determine current directory
+        id: dir
+        run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@v1
+
+      - name: Deploy service
+        if: ${{ steps.dir.outputs.directory }}/service
+        run: |
+          cd "${{ steps.dir.outputs.directory }}/service"
+          flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_BACKEND }}
