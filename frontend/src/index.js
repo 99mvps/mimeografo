@@ -22,6 +22,7 @@ app.use(
   ),
 );
 
+
 app.get('/health', async (req, res) => {
   const ping = Date.now();
   const apiURL = new URL('/health', constants.apiURL);
