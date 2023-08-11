@@ -7,34 +7,32 @@ on:
 
 jobs:
   build-and-test:
-    name: Build and Test
+    name: build and test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: checkout code # get the last commit
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
+      - name: set up node.js
         uses: actions/setup-node@v2
         with:
           node-version: 14
 
-      - name: Determine current directory
+      - name: determine current directory
         id: dir
         run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
-        #run: echo "::set-output name=dir::$(pwd)"
 
-      - name: Build Frontend
+      - name: build frontend
         if: ${{ steps.dir.outputs.directory }}/frontend
         run: |
           cd ${{ steps.dir.outputs.directory }}/frontend
           npm install
-          npm run lint # Adjust this command based on your project's setup
+          npm run lint
 
-      - name: Build Service
+      - name: build service
         if: ${{ steps.dir.outputs.directory }}/service
         run: |
           cd ${{ steps.dir.outputs.directory }}/service
           npm install
-          npm run lint # Adjust this command based on your project's setup
-
+          npm run lint 
