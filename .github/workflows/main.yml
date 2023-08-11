@@ -10,34 +10,46 @@ on:
       - github.event.pull_request.merged == true
 
 jobs:
-  deploy:
-    name: deploy app
+  deploy_frontend:
+    name: deploy frontend
     runs-on: ubuntu-latest
     steps:
       - name: determine current directory
         id: dir
         run: echo "directory=$(pwd)" >> "$GITHUB_ENV"
 
-      - name: deploy frontend
-        if: ${{ steps.dir.outputs.directory }}/frontend
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v2
-          - name: Setup flyctl
-            uses: superfly/flyctl-actions/setup-flyctl@v1
-          - name: Deploy frontend
-            run: flyctl deploy --remote-only
-            env:
-              FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: deploy service
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@v1
+
+      - name: Deploy frontend
+        if: ${{ steps.dir.outputs.directory }}/frontend
+        run: |
+          cd "${{ steps.dir.outputs.directory }}/frontend"
+          flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  deploy_service:
+    name: deploy service
+    runs-on: ubuntu-latest
+    steps:
+      - name: determine current directory
+        id: dir
+        run: echo "directory=$(pwd)" >> "$GITHUB_ENV"
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@v1
+
+      - name: Deploy service
         if: ${{ steps.dir.outputs.directory }}/service
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v2
-          - name: Setup flyctl
-            uses: superfly/flyctl-actions/setup-flyctl@v1
-          - name: Deploy service
-            run: flyctl deploy --remote-only
-            env:
-              FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          cd "${{ steps.dir.outputs.directory }}/service"
+          flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
