@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: determine current directory
         id: dir
-        run: echo "directory=$(pwd)" >> "$GITHUB_ENV"
+        run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: determine current directory
         id: dir
-        run: echo "directory=$(pwd)" >> "$GITHUB_ENV"
+        run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
 
       - name: Checkout code
         uses: actions/checkout@v2
