@@ -7,7 +7,6 @@ on:
 
 jobs:
   deploy_frontend:
-    if: github.event.pull_request.merged == true
     name: deploy frontend
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +34,6 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_FRONTEND }}
 
   deploy_service:
-    if: github.event.pull_request.merged == true
     name: deploy service
     runs-on: ubuntu-latest
     steps:
