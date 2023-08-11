@@ -18,6 +18,11 @@ jobs:
         id: dir
         run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
 
+      - name: Debug Info
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -39,6 +44,11 @@ jobs:
       - name: determine current directory
         id: dir
         run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
+
+      - name: Debug Info
+        run: |
+          echo "Current directory: $(pwd)"
+          echo "Current branch: $(git rev-parse --abbrev-ref HEAD)"
 
       - name: Checkout code
         uses: actions/checkout@v2
