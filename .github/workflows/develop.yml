@@ -1,4 +1,4 @@
-name: multi-services-quality-check 
+name: build and test
 
 on:
   push:
@@ -7,33 +7,33 @@ on:
 
 jobs:
   build-and-test:
-    name: build and test
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: set up node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 14
 
-      - name: determine current directory
+      - name: Determine current directory
         id: dir
-        run: echo "{name}={dir::$(pwd)}" >> $GITHUB_OUTPUT
+        run: echo "::set-output name=dir::$(pwd)"
 
-      - name: build frontend
-        if: ${{ steps.dir.outputs.dir }}/frontend # check if frontend directory exists
+      - name: Build Frontend
+        if: ${{ steps.dir.outputs.dir }}/frontend # Check if frontend directory exists
         run: |
           cd ${{ steps.dir.outputs.dir }}/frontend
           npm install
-          npm run lint # adjust this command based on your project's setup
+          npm run lint # Adjust this command based on your project's setup
 
-      - name: build service
-        if: ${{ steps.dir.outputs.dir }}/service # check if service directory exists
+      - name: Build Service
+        if: ${{ steps.dir.outputs.dir }}/service # Check if service directory exists
         run: |
           cd ${{ steps.dir.outputs.dir }}/service
           npm install
-          npm run lint # adjust this command based on your project's setup
+          npm run lint # Adjust this command based on your project's setup
 
