@@ -20,7 +20,7 @@ jobs:
           node-version: 14
 
       - name: install dependencies
-        run: npm install
+        run: npm i 
 
       - name: run eslint
         run: npm run lint # Adjust this command based on your project's setup
