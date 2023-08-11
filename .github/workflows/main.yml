@@ -1,13 +1,9 @@
 name: fly deploy
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - main
-    condition:
-      - github.event.pull_request.merged == true
 
 jobs:
   deploy_frontend:
