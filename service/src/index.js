@@ -141,13 +141,9 @@ app.get('/v1/image', (req, res) => {
   return code;
 });
 
-// The error handler must be registered before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
 
-// Optional fallthrough error handler
 app.use((err, req, res) => {
-  // The error id is attached to `res.sentry` to be returned
-  // and optionally displayed to the user for support.
   res.statusCode = 500;
   res.end(`${res.sentry}\n`);
 });
