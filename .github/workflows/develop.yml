@@ -1,0 +1,38 @@
+name: build and test
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-test:
+    name: build and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code # get the last commit
+        uses: actions/checkout@v2
+
+      - name: set up node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: determine current directory
+        id: dir
+        run: echo "directory=$(pwd)" >> "$GITHUB_OUTPUT"
+
+      - name: build frontend
+        if: ${{ steps.dir.outputs.directory }}/frontend
+        run: |
+          cd ${{ steps.dir.outputs.directory }}/frontend
+          npm install
+          npm run lint
+
+      - name: build service
+        if: ${{ steps.dir.outputs.directory }}/service
+        run: |
+          cd ${{ steps.dir.outputs.directory }}/service
+          npm install
+          npm run lint 

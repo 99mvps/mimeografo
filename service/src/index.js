@@ -49,6 +49,7 @@ app.use(express.json());
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// eslint-disable-next-line
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 
 app.use(
@@ -89,7 +90,7 @@ app.post('/v1/code', async (req, res) => {
 
     res.status(200).json(mime);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     Sentry.captureException(err);
     if (
       err.message
@@ -108,6 +109,7 @@ app.post('/v1/code', async (req, res) => {
       errorTrace: err,
     });
   }
+  return codeId;
 });
 
 app.get('/v1/image', (req, res) => {
@@ -135,13 +137,15 @@ app.get('/v1/image', (req, res) => {
       res.end(data);
     }
   });
+
+  return code;
 });
 
 // The error handler must be registered before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
 
 // Optional fallthrough error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   // The error id is attached to `res.sentry` to be returned
   // and optionally displayed to the user for support.
   res.statusCode = 500;
@@ -159,9 +163,9 @@ app.listen(constants.port, () => {
 
       files.forEach((file) => {
         const imageFilePath = path.join(__dirname, '/images', file);
-        fs.unlink(imageFilePath, (err) => {
-          if (err) {
-            console.error('Error deleting image:', err);
+        fs.unlink(imageFilePath, (fsErr) => {
+          if (fsErr) {
+            console.fsError('fsError deleting image:', fsErr);
           } else {
             console.log('Image file has been deleted:', imageFilePath);
           }

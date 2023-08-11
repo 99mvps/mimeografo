@@ -14,6 +14,7 @@ app.use(express.json());
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
+// eslint-disable-next-line
 morgan.token('body', (req, _) => JSON.stringify(req.body));
 
 app.use(
@@ -21,7 +22,6 @@ app.use(
     ':status :method :response-time ms - :res[content-length] :body - :req[content-length]',
   ),
 );
-
 
 app.get('/health', async (req, res) => {
   const ping = Date.now();
