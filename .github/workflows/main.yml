@@ -20,16 +20,21 @@ jobs:
 
       - name: deploy frontend
         if: ${{ steps.dir.outputs.directory }}/frontend
-      - uses: actions/checkout@v2
-      - uses: superfly/flyctl-actions/setup-flyctl@v1
-      - run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+          - uses: superfly/flyctl-actions/setup-flyctl@v1
+          - run: flyctl deploy --remote-only
+            env:
+              FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
       - name: deploy service
         if: ${{ steps.dir.outputs.directory }}/service
-      - uses: actions/checkout@v2
-      - uses: superfly/flyctl-actions/setup-flyctl@v1
-      - run: flyctl deploy --remote-only
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+          - uses: superfly/flyctl-actions/setup-flyctl@v1
+          - run: flyctl deploy --remote-only
+            env:
+              FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
