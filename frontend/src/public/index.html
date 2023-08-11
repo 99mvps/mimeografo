@@ -14,10 +14,10 @@
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8619393342380318" crossorigin="anonymous"></script>
 </head>
 
-<body onload="initial()">
+<body onload="app.initial()">
 	<div id="dialog-container-dialog-docs" class="dialog-container">
 		<div id="dialog-docs" onclick="event.stopPropagation()">
-			<button class="tooltip-btn dialog-close-btn" data-tooltip="Fechar" onclick="closeDialog('#dialog-docs')">
+			<button class="tooltip-btn dialog-close-btn" data-tooltip="Fechar" onclick="app.closeDialog('#dialog-docs')">
 				<i class="fas fa-times"></i>
 			</button>
 			<h2 class="text-centered dialog-pix-headerline">Docs</h2>
@@ -65,7 +65,7 @@
 
 	<div id="dialog-container-dialog-pix" class="dialog-container">
 		<div id="dialog-pix" onclick="event.stopPropagation()">
-			<button class="tooltip-btn dialog-close-btn" data-tooltip="Fechar" onclick="closeDialog('#dialog-pix')">
+			<button class="tooltip-btn dialog-close-btn" data-tooltip="Fechar" onclick="app.closeDialog('#dialog-pix')">
 				<i class="fas fa-times"></i>
 			</button>
 			<h2 class="text-centered dialog-pix-headerline">Attenzione Pickpocket!</h2>
@@ -152,7 +152,7 @@
 				<textarea id="codeInput" rows="20" cols="10" placeholder="/*** Digite seu código ***/"></textarea>
 			</div>
 
-			<button onclick="createImage()">
+			<button onclick="app.createImage()">
 				Mimeografar
 			</button>
 		</div>
@@ -166,9 +166,9 @@
 			<img src="#" id="code-image-base64">
 			<div class="buttons-container">
 				<div class="tooltip"></div>
-				<button class="tooltip-btn" data-tooltip="Copiar imagem para o clipboard." onclick="copyImageToClipboard()"><i
+				<button class="tooltip-btn" data-tooltip="Copiar imagem para o clipboard." onclick="app.copyImageToClipboard()"><i
 						class="fa-regular fa-image"></i></button>
-				<button class="tooltip-btn" data-tooltip="Copiar imagem Base64 para o clipboard." onclick="copyBase64Image()"><i
+				<button class="tooltip-btn" data-tooltip="Copiar imagem Base64 para o clipboard." onclick="app.copyBase64Image()"><i
 						class="fa-solid fa-file-code"></i></button>
 				<button class="tooltip-btn" data-tooltip="Abrir em uma nova aba." onclick="openImageInNewTab()"><i
 						class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -177,7 +177,7 @@
 			</div>
 			<button class="tooltip-btn dialog-docs-open-btn"
 				data-tooltip="Sim, dá pra integrar, mas por favor, vamos com muita calma nessa hora 😊"
-				onclick="openDialog('#dialog-docs')">
+				onclick="app.openDialog('#dialog-docs')">
 				Doc <i class="fa-solid fa-book"></i>
 			</button>
 		</div>

@@ -1,35 +1,22 @@
 const $ = (element) => document.querySelector(element);
 const apiURL = 'https://mimeografo-api.fly.dev';
 
-function initial() {
-  const buttons = document.querySelectorAll('.tooltip-btn');
+function showToast(options) {
+  let timer = 3000;
+  let message = '';
+  if (options) {
+    timer = options.timer ?? timer;
+    message = options.message ?? message;
+  }
 
-  buttons.forEach((button) => {
-    button.addEventListener('mouseenter', showTooltip);
-    button.addEventListener('mouseleave', hideTooltip);
-  });
+  const toast = $('#toastMessage');
+  toast.innerHTML = message;
+  toast.classList.add('show');
 
-  const textarea = $('#codeInput');
-  const lineNumbers = $('.line-numbers');
-
-  textarea.addEventListener('keyup', (event) => {
-    const numberOfLines = event.target.value.split('\n').length;
-
-    lineNumbers.innerHTML = Array(numberOfLines).fill('<span></span>').join('');
-  });
-
-  textarea.addEventListener('keydown', (event) => {
-    if (event.key === 'Tab') {
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-
-      textarea.value = `${textarea.value.substring(0, start)
-      }\t${
-        textarea.value.substring(end)}`;
-
-      event.preventDefault();
-    }
-  });
+  setTimeout(() => {
+    toast.classList.remove('show');
+    toast.innerHTML = '';
+  }, timer);
 }
 
 function loaderHandler({ hideElement }) {
@@ -49,7 +36,45 @@ function loaderHandler({ hideElement }) {
   }
 }
 
-const createImage = () => {
+async function loadImage({ base64, imageURI }) {
+  showToast({
+    message: 'Mimeografagem gerada com sucesso!',
+  });
+  loaderHandler({
+    hideElement: '#code-image-wrapper',
+  });
+  const codeImage = document.createElement('img');
+  codeImage.src = imageURI;
+  codeImage.setAttribute('id', 'code-image');
+
+  $('#code-image-wrapper').innerHTML = '';
+  $('#code-image-wrapper').appendChild(codeImage);
+  $('#code-image-base64').src = `data:image/png;base64,${base64}`;
+}
+
+function handleError(error) {
+  console.log(error, error.errorMessage, error.errorTrace);
+  if (error.errorMessage) {
+    loaderHandler({
+      hideElement: '#code-image-wrapper',
+    });
+    return showToast({
+      message: `Erro a mimeografar! Provavelmente há um erro de sintaxe no seu código.\
+      <p>${error.errorMessage}</p><br><br><br>\
+      <p>O erro, parece estar perto da linha: ${error.errorTrace.loc.start.line}</p>`,
+      timer: 6500,
+    });
+  }
+  loaderHandler({
+    hideElement: '#code-image-wrapper',
+  });
+  return showToast({
+    message: error.error,
+    timer: 4500,
+  });
+}
+
+function createImage() {
   const code = $('#codeInput').value;
   const title = $('#codeTitle').value;
   const parser = $('#codeParser').value;
@@ -68,31 +93,14 @@ const createImage = () => {
       code, title, parser, color,
     }),
   })
-    .then(async (response) => {
+    .then((response) => {
       if (response.ok) {
         // { codeId, code, title, imageURI, base64 }
         response.json().then(loadImage);
       } else {
-        const r = await response.json();
-        console.log(r, r.errorMessage, r.errorTrace);
-        if (r.errorMessage) {
-          loaderHandler({
-            hideElement: '#code-image-wrapper',
-          });
-          return showToast({
-            message: `Erro a mimeografar! Provavelmente há um erro de sintaxe no seu código.\
-            <p>${r.errorMessage}</p><br><br><br>\
-            <p>O erro, parece estar perto da linha: ${r.errorTrace.loc.start.line}</p>`,
-            timer: 6500,
-          });
-        }
-        showToast({
-          message: r.error,
-          timer: 4500,
-        });
-        loaderHandler({
-          hideElement: '#code-image-wrapper',
-        });
+        response
+          .json()
+          .then((err) => handleError(err));
       }
     })
     .catch((error) => {
@@ -101,25 +109,9 @@ const createImage = () => {
         timer: 4500,
       });
     });
-};
-
-async function loadImage({ base64, imageURI }) {
-  showToast({
-    message: 'Mimeografagem gerada com sucesso!',
-  });
-  loaderHandler({
-    hideElement: '#code-image-wrapper',
-  });
-  const codeImage = document.createElement('img')
-  codeImage.src = imageURI;
-  codeImage.setAttribute("id", "code-image");
-
-  $('#code-image-wrapper').innerHTML = "";
-  $('#code-image-wrapper').appendChild(codeImage);
-  $('#code-image-base64').src = `data:image/png;base64,${base64}`;
 }
 
-const copyImageToClipboard = async () => {
+async function copyImageToClipboard() {
   const imageUrl = $('#code-image').src;
   // God save the kittens 🐱
   // https://www.youtube.com/watch?v=sP4NMoJcFd4
@@ -147,24 +139,6 @@ const copyImageToClipboard = async () => {
         'Deu erro em copyImageToClipboard calma aí, pow!<br>#code-image.src parece vazio.',
     });
   }
-};
-
-function showToast(options) {
-  let timer = 3000;
-  let message = '';
-  if (options) {
-    timer = options.timer ?? timer;
-    message = options.message ?? message;
-  }
-
-  const toast = $('#toastMessage');
-  toast.innerHTML = message;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-    toast.innerHTML = '';
-  }, timer);
 }
 
 function copyBase64Image() {
@@ -252,17 +226,64 @@ function closeDialog(dialogId) {
   $(dialogId).classList.remove('active');
 }
 
-function updateLineNumbers() {
-  const codeInput = $('#codeInput');
-  const lineNumbersContainer = $('#lineNumbers');
+// function updateLineNumbers() {
+//   const codeInput = $('#codeInput');
+//   const lineNumbersContainer = $('#lineNumbers');
+//
+//   // Get the number of lines in the textarea
+//   const lineCount = codeInput.value.split('\n').length;
+//
+//   // Generate the line numbers and update the container
+//   let lineNumbersHTML = '';
+//   for (let i = 1; i <= lineCount; i++) {
+//     lineNumbersHTML += `<span>${i}</span>\n`;
+//   }
+//   lineNumbersContainer.innerHTML = lineNumbersHTML;
+// }
 
-  // Get the number of lines in the textarea
-  const lineCount = codeInput.value.split('\n').length;
+function initial() {
+  const buttons = document.querySelectorAll('.tooltip-btn');
 
-  // Generate the line numbers and update the container
-  let lineNumbersHTML = '';
-  for (let i = 1; i <= lineCount; i++) {
-    lineNumbersHTML += `<span>${i}</span>\n`;
-  }
-  lineNumbersContainer.innerHTML = lineNumbersHTML;
+  buttons.forEach((button) => {
+    button.addEventListener('mouseenter', showTooltip);
+    button.addEventListener('mouseleave', hideTooltip);
+  });
+
+  const textarea = $('#codeInput');
+  const lineNumbers = $('.line-numbers');
+
+  textarea.addEventListener('keyup', (event) => {
+    const numberOfLines = event.target.value.split('\n').length;
+
+    lineNumbers.innerHTML = Array(numberOfLines).fill('<span></span>').join('');
+  });
+
+  textarea.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+
+      textarea.value = `${textarea.value.substring(0, start)
+      }\t${
+        textarea.value.substring(end)}`;
+
+      event.preventDefault();
+    }
+  });
 }
+
+let app = {};
+
+// eslint-disable-next-line
+app = {
+  initial,
+  closeDialog,
+  openDialog,
+  createImage,
+  copyImageToClipboard,
+  copyBase64Image,
+  openImageInNewTab,
+  showTooltip,
+  showToast,
+  shareImage,
+};
