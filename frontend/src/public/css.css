@@ -21,7 +21,7 @@ body {
 	background-color: #121212;
 	height: 100vh;
 	max-width: 1220px;
-	margin: 0 auto; /* To horizontally center the body within the viewport */
+	margin: 0 auto;
 }
 
 
@@ -116,11 +116,6 @@ button:hover {
 	/* Use flexbox to arrange the two child elements horizontally */
 }
 
-/* Style for the form container */
-.form-container {
-	flex: 1;
-	margin-right: 20px;
-}
 
 /* Style for the code image container */
 .code-image-container {
@@ -137,23 +132,13 @@ button:hover {
 	display: flex;
 }
 
-
-/* Styles for form input container */
-.form-inputs {
-	display: flex;
+/* Style for the form container */
+.form-container {
+	flex: 2;
+	margin-right: 20px;
 }
 
-/* Styles for form inputs */
-.form-inputs input {
-	width: 170px;
-	margin: 10px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
-}
-
-.form-inputs select {
+#codeParser {
 	width: 200px;
 	margin: 8px;
 	padding: 10px;
@@ -162,7 +147,7 @@ button:hover {
 	font-size: 16px;
 }
 
-.form-inputs select.formCodeBgColor {
+#codeBgColor {
 	width: 150px;
 	margin: 8px 0px;
 	padding: 10px;
@@ -170,6 +155,7 @@ button:hover {
 	border-radius: 4px;
 	font-size: 16px;
 }
+
 /* Styles for the toast container */
 .toast {
 	position: fixed;
@@ -257,6 +243,7 @@ button:hover {
 	height: 780px;
 	overflow-y: scroll;
 }
+
 #dialog-pix.active {
 	opacity: 1;
 	transform: translate(-50%, -50%) scale(1);
@@ -278,10 +265,12 @@ button:hover {
 	height: 780px;
 	overflow-y: scroll;
 }
+
 #dialog-docs.active {
 	opacity: 1;
 	transform: translate(-50%, -50%) scale(1);
 }
+
 .dialog-docs-headerline {
 	margin: 15px 15px;
 }
@@ -303,6 +292,7 @@ a.toast-clipboard-error {
 a.toast-clipboard-error:hover {
 	color: yellow;
 }
+
 .dialog-images-container {
 	display: flex;
 	justify-content: center;
@@ -389,13 +379,15 @@ a.toast-clipboard-error:hover {
 	border-radius: 2px;
 	padding: 20px 0px;
 	width: 100%;
-	overflow: hidden; /* Hide any overflowing content */
+	overflow: hidden;
+	/* Hide any overflowing content */
 }
 
 .line-numbers {
 	width: 20px;
 	text-align: right;
-	overflow-y: hidden; /* Hide any line numbers that may overflow */
+	overflow-y: hidden;
+	/* Hide any line numbers that may overflow */
 }
 
 .line-numbers span {
@@ -415,7 +407,8 @@ a.toast-clipboard-error:hover {
 	width: 100%;
 	font-size: 16px;
 	line-height: 21px;
-	overflow-y: scroll; /* Display vertical scrollbar when textarea content overflows */
+	overflow-y: scroll;
+	/* Display vertical scrollbar when textarea content overflows */
 	padding: 0;
 	outline: none;
 	resize: none;
