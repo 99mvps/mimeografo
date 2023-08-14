@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { createCanvas, registerFont, loadImage } = require('canvas');
+const { createCanvas, registerFont } = require('canvas');
 // eslint-disable-next-line
 const prettier = require('prettier');
 const { constants } = require('./constants');
@@ -10,42 +10,45 @@ const fontPath = path.join(__dirname, 'fonts', 'FiraCode_regular.ttf');
 registerFont(fontPath, { family: 'FireCode' });
 
 function drawWindowActionButtons(sourceCtx) {
+  const newSourceCtx = sourceCtx;
   [{
     circleSize: 10,
     posX: 30,
     posY: 24,
     color: '#FF5F56',
-    stroke: '#E0443E'
+    stroke: '#E0443E',
   }, {
     circleSize: 10,
     posX: 64,
     posY: 24,
     color: '#FFBD2E',
-    stroke: '#DEA123'
+    stroke: '#DEA123',
   }, {
     circleSize: 10,
     posX: 100,
     posY: 24,
     color: '#27C93F',
-    stroke: '#1AAB29'
-  }].map(({ circleSize, posX, posY, color, stroke }) => {
-    sourceCtx.beginPath();
-    sourceCtx.arc(posX, posY, circleSize, 0, 2 * Math.PI);
-    sourceCtx.fillStyle = color;
-    sourceCtx.fill();
-    sourceCtx.strokeStyle = stroke;
-    sourceCtx.lineWidth = 1.5;
-    sourceCtx.stroke();
+    stroke: '#1AAB29',
+  }].forEach(({
+    circleSize, posX, posY, color, stroke,
+  }) => {
+    newSourceCtx.beginPath();
+    newSourceCtx.arc(posX, posY, circleSize, 0, 2 * Math.PI);
+    newSourceCtx.fillStyle = color;
+    newSourceCtx.fill();
+    newSourceCtx.strokeStyle = stroke;
+    newSourceCtx.lineWidth = 1.5;
+    newSourceCtx.stroke();
   });
 }
 
-function drawTitle(sourceCtx, canvasWidth, font, topBarHeight, title) {
-  const canvasCtx = sourceCtx;
-  canvasCtx.fillStyle = '#fff';
-  canvasCtx.textBaseline = 'middle';
-  canvasCtx.font = font;
-  canvasCtx.fillText(title || 'Sem Título1', canvasWidth - topBarHeight, 75);
-}
+// function drawTitle(sourceCtx, canvasWidth, font, topBarHeight, title) {
+//   const canvasCtx = sourceCtx;
+//   canvasCtx.fillStyle = '#fff';
+//   canvasCtx.textBaseline = 'middle';
+//   canvasCtx.font = font;
+//   canvasCtx.fillText(title || 'Sem Título1', canvasWidth - topBarHeight, 75);
+// }
 
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
@@ -153,7 +156,6 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
   // const textMetrics = sourceCtx.measureText(title);
   // sourceCtx.fillStyle = lineNumberColor;
   // sourceCtx.fillRect(0, 50, textMetrics.width+50, 50);
-
 
   // title
   // drawTitle(
