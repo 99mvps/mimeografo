@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "node src/index.js",
-		"dev": "node --inspect src/index.js",
+		"dev": "nodemon src/index.js localhost 8080",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "./node_modules/eslint/bin/eslint.js ."
 	},
@@ -29,6 +29,7 @@
 		"@flydotio/dockerfile": "^0.4.0",
 		"eslint": "^8.46.0",
 		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-plugin-import": "^2.28.0"	
+		"eslint-plugin-import": "^2.28.0",
+		"nodemon": "^3.0.1"
 	}
 }
