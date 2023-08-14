@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { createCanvas, registerFont } = require('canvas');
+const { createCanvas, registerFont, loadImage } = require('canvas');
 // eslint-disable-next-line
 const prettier = require('prettier');
 const { constants } = require('./constants');
@@ -9,38 +9,42 @@ const defaultParser = require('./parsers-default');
 const fontPath = path.join(__dirname, 'fonts', 'FiraCode_regular.ttf');
 registerFont(fontPath, { family: 'FireCode' });
 
-function drawCloseIcon(sourceCtx, canvasWidth, padding) {
-  const closeButtonSize = 20;
-  const closeIconX = canvasWidth - padding - closeButtonSize / 2;
-  const closeIconY = padding + closeButtonSize / 2;
-  const canvasCtx = sourceCtx;
-
-  // Draw a button-like shape
-  canvasCtx.beginPath();
-  canvasCtx.arc(closeIconX, closeIconY, closeButtonSize / 2, 0, 2 * Math.PI);
-  canvasCtx.fillStyle = '#DDD';
-  canvasCtx.fill();
-  canvasCtx.strokeStyle = '#000';
-  canvasCtx.lineWidth = 1.5;
-  canvasCtx.stroke();
-
-  // Draw an X icon
-  const iconSize = closeButtonSize * 0.6;
-  canvasCtx.fillStyle = '#000';
-  canvasCtx.font = `${iconSize}px sans-serif`;
-  canvasCtx.textAlign = 'center';
-  canvasCtx.textBaseline = 'middle';
-  canvasCtx.fillText('X', closeIconX, closeIconY);
+function drawWindowActionButtons(sourceCtx) {
+  [{
+    circleSize: 10,
+    posX: 30,
+    posY: 24,
+    color: '#FF5F56',
+    stroke: '#E0443E'
+  }, {
+    circleSize: 10,
+    posX: 64,
+    posY: 24,
+    color: '#FFBD2E',
+    stroke: '#DEA123'
+  }, {
+    circleSize: 10,
+    posX: 100,
+    posY: 24,
+    color: '#27C93F',
+    stroke: '#1AAB29'
+  }].map(({ circleSize, posX, posY, color, stroke }) => {
+    sourceCtx.beginPath();
+    sourceCtx.arc(posX, posY, circleSize, 0, 2 * Math.PI);
+    sourceCtx.fillStyle = color;
+    sourceCtx.fill();
+    sourceCtx.strokeStyle = stroke;
+    sourceCtx.lineWidth = 1.5;
+    sourceCtx.stroke();
+  });
 }
 
 function drawTitle(sourceCtx, canvasWidth, font, topBarHeight, title) {
-  console.log({ title });
   const canvasCtx = sourceCtx;
-  canvasCtx.fillStyle = '#000';
-  canvasCtx.textAlign = 'center';
+  canvasCtx.fillStyle = '#fff';
   canvasCtx.textBaseline = 'middle';
   canvasCtx.font = font;
-  canvasCtx.fillText(title || 'Sem Título1', canvasWidth / 2, topBarHeight / 2);
+  canvasCtx.fillText(title || 'Sem Título1', canvasWidth - topBarHeight, 75);
 }
 
 function getRandomColor() {
@@ -85,9 +89,10 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
 
   const fontHeight = 18;
   const lineSpacing = 22;
-  const padding = 5;
-  const closeButtonSize = 20;
-  const topBarHeight = 30;
+  const padding = 10;
+  const borderGutter = 15;
+  // const topBarHeight = 100;
+  const topBarHeight = 55;
 
   const lines = formattedCode.split('\n');
   const lineCount = lines.length;
@@ -105,8 +110,7 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
   );
   const canvasWidth = lineNumberWidth
     + longestLine * (fontHeight * 0.6)
-    + padding * 4
-    + closeButtonSize;
+    + padding * 4 + borderGutter;
 
   const canvasHeight = lineCount * lineSpacing + padding * 2 + topBarHeight + fontHeight;
 
@@ -114,9 +118,11 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
   const sourceCanvas = createCanvas(canvasWidth, canvasHeight);
   const sourceCtx = sourceCanvas.getContext('2d');
 
-  // Set background color based on the theme
+  sourceCtx.roundRect(0, 0, sourceCanvas.width, sourceCanvas.height, 20);
   sourceCtx.fillStyle = bgColor;
-  sourceCtx.fillRect(0, 0, sourceCanvas.width, sourceCanvas.height);
+  sourceCtx.fill();
+
+  drawWindowActionButtons(sourceCtx);
 
   // Set code text properties based on the theme with fixed font size
   sourceCtx.font = `${fontHeight}px Monospace`;
@@ -135,7 +141,7 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
     sourceCtx.fillStyle = textColor;
     sourceCtx.fillText(
       lines[lineNumber - 1],
-      padding * 3 + lineNumberWidth,
+      padding + lineNumberWidth,
       lineNumberY,
     );
 
@@ -143,22 +149,20 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
     lineNumberY += lineSpacing;
   }
 
-  sourceCtx.strokeStyle = '#000';
-  sourceCtx.lineWidth = 5;
-  sourceCtx.strokeRect(0, 0, sourceCanvas.width, sourceCanvas.height);
+  // tab
+  // const textMetrics = sourceCtx.measureText(title);
+  // sourceCtx.fillStyle = lineNumberColor;
+  // sourceCtx.fillRect(0, 50, textMetrics.width+50, 50);
 
-  sourceCtx.fillStyle = '#ccc';
-  sourceCtx.fillRect(0, 0, sourceCanvas.width, topBarHeight);
 
-  drawCloseIcon(sourceCtx, canvasWidth, padding);
-
-  drawTitle(
-    sourceCtx,
-    canvasWidth,
-    `bold ${fontHeight}px FiraCode`,
-    topBarHeight,
-    title,
-  );
+  // title
+  // drawTitle(
+  //   sourceCtx,
+  //   canvasWidth,
+  //   `normal ${fontHeight}px FiraCode`,
+  //   textMetrics.width,
+  //   title,
+  // );
 
   // Create a new canvas with the final dimensions including the border and close icon
   const targetCanvas = createCanvas(sourceCanvas.width * 1.25, sourceCanvas.height + 145 * 1.25);
