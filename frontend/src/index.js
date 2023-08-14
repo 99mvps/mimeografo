@@ -8,7 +8,16 @@ const app = express();
 
 app.use(morgan('dev'));
 
-app.use(cors());
+app.use(
+  cors({
+    origin(origin, callback) {
+      callback(
+        null,
+        ['https://pagead2.googlesyndication.com'].includes(origin),
+      );
+    },
+  }),
+);
 app.use(express.json());
 
 app.use('/', express.static(path.join(__dirname, 'public')));
