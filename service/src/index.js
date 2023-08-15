@@ -34,16 +34,7 @@ app.use(Sentry.Handlers.tracingHandler());
 
 app.use(morgan('dev'));
 
-app.use(
-  cors({
-    origin(origin, callback) {
-      callback(
-        null,
-        ['https://mimeografo.codes', 'http://localhost:3000'].includes(origin),
-      );
-    },
-  }),
-);
+app.use(cors());
 
 app.use(express.json());
 
