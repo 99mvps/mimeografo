@@ -76,7 +76,6 @@ function handleError(error) {
 
 function createImage() {
   const code = $('#codeInput').value;
-  const title = $('#codeTitle').value;
   const parser = $('#codeParser').value;
   const color = $('#codeBgColor').value;
 
@@ -90,12 +89,12 @@ function createImage() {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      code, title, parser, color,
+      code, parser, color,
     }),
   })
     .then((response) => {
       if (response.ok) {
-        // { codeId, code, title, imageURI, base64 }
+        // { codeId, code, imageURI, base64 }
         response.json().then(loadImage);
       } else {
         response
