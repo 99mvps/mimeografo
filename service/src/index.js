@@ -64,6 +64,10 @@ app.get('/health', async (req, res) => {
 });
 
 app.post('/v1/code', async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE')
+  res.header('Access-Control-Allow-Headers', 'content-type')
+
   const codeId = crypto.randomBytes(16).toString('hex');
   const {
     code, title, color, parser,
