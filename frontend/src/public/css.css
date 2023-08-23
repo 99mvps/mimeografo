@@ -10,410 +10,419 @@ p,
 ul,
 li,
 button {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Basic styling for the page container */
 body {
-	font-family: Arial, sans-serif;
-	background-color: #121212;
-	height: 100vh;
-	max-width: 1220px;
-	margin: 0 auto;
+  font-family: Arial, sans-serif;
+  background-color: #121212;
+  height: 100vh;
+  max-width: 1220px;
+  margin: 0 auto;
 }
-
 
 .text-centered {
-	text-align: center;
+  text-align: center;
 }
-
 
 /* Additional styles for the header */
 .header {
-	background-color: #f2f2f2;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border-radius: 8px;
+  background-color: #f2f2f2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
 }
 
 .footer-text {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 /* Styling for the row containers */
 .container-logo {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	/* Center horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center horizontally */
 }
 
 /* Styling for the row containers */
 .container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	/* Center horizontally */
-	background-color: #fff;
-	border-radius: 8px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	/* max-width: 600px; */
-	margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center horizontally */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  /* max-width: 600px; */
+  margin: 20px auto;
 }
 
 input,
 /* textarea, */
 button,
 select {
-	margin: 8px 0px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	background-color: #fff;
-	border-radius: 4px;
-	width: 100%;
-	font-size: 16px;
+  margin: 8px 0px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
 }
 
 button {
-	background-color: #007bff;
-	color: #fff;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-	background-color: #0056b3;
+  background-color: #0056b3;
 }
 
+.github {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 38px;
+  height: 40px;
+}
+.github:hover {
+  background-color: #0056b3;
+}
 .centered-text {
-	text-align: center;
-	color: #666;
+  text-align: center;
+  color: #666;
 }
 
 /* Adjusted positioning for the code image container */
 .code-image-container {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #code-image {
-	max-width: 100%;
-	border-radius: 4px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	/* display: none; */
+  max-width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* display: none; */
 }
 
 /* ... Your existing CSS styles ... */
 
 /* Styling for the container holding the form and code image */
 .content-container {
-	display: flex;
-	/* Use flexbox to arrange the two child elements horizontally */
+  display: flex;
+  /* Use flexbox to arrange the two child elements horizontally */
 }
-
 
 /* Style for the code image container */
 .code-image-container {
-	flex: 1;
-	margin-left: 20px;
-	padding: 20px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+  flex: 1;
+  margin-left: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .buttons-container {
-	display: flex;
+  display: flex;
 }
 
 /* Style for the form container */
 .form-container {
-	flex: 2;
-	margin-right: 20px;
+  flex: 2;
+  margin-right: 20px;
 }
 
 #codeParser {
-	width: 200px;
-	margin: 8px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
+  width: 200px;
+  margin: 8px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 #codeBgColor {
-	width: 150px;
-	margin: 8px 0px;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	font-size: 16px;
+  width: 150px;
+  margin: 8px 0px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 /* Styles for the toast container */
 .toast {
-	position: fixed;
-	visibility: hidden;
-	top: 160px;
-	left: 50%;
-	transform: translateX(-50%);
-	background-color: #333;
-	color: #fff;
-	border: 1px solid yellow;
-	padding: 12px 24px;
-	border-radius: 8px;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-	z-index: 1;
+  position: fixed;
+  visibility: hidden;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  border: 1px solid yellow;
+  padding: 12px 24px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
 /* Show the toast message */
 .toast.show {
-	opacity: 1;
-	visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 #code-image-base64 {
-	display: none;
+  display: none;
 }
 
-
 .link-container {
-	display: flex;
-	justify-content: flex-end;
-	width: 100%;
-	margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 8px;
 }
 
 .parsers-link {
-	color: #007bff;
-	text-decoration: none;
+  color: #007bff;
+  text-decoration: none;
 }
 
 /* Tooltip container styles */
 .tooltip {
-	position: absolute;
-	background-color: rgba(0, 0, 0, 0.8);
-	color: #fff;
-	padding: 5px 10px;
-	border-radius: 4px;
-	font-size: 14px;
-	visibility: hidden;
-	opacity: 0;
-	transition: opacity 0.2s ease-in-out;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 /* Tooltip container styles for when it's visible */
 .tooltip.show {
-	visibility: visible;
-	opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .dialog-container {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1;
-	opacity: 0;
-	transition: opacity 0.3s ease;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 #dialog-pix {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #f0f0f0;
-	padding: 20px;
-	border-radius: 5px;
-	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-	opacity: 0;
-	transition: opacity 0.3s ease, transform 0.3s ease;
-	width: 60%;
-	height: 780px;
-	overflow-y: scroll;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  width: 60%;
+  height: 780px;
+  overflow-y: scroll;
 }
 
 #dialog-pix.active {
-	opacity: 1;
-	transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-
 #dialog-docs {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #f0f0f0;
-	padding: 20px;
-	border-radius: 5px;
-	box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-	opacity: 0;
-	transition: opacity 0.3s ease, transform 0.3s ease;
-	width: 60%;
-	height: 780px;
-	overflow-y: scroll;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  width: 60%;
+  height: 780px;
+  overflow-y: scroll;
 }
 
 #dialog-docs.active {
-	opacity: 1;
-	transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 .dialog-docs-headerline {
-	margin: 15px 15px;
+  margin: 15px 15px;
 }
 
 .dialog-docs-footer {
-	margin: 15px 15px;
+  margin: 15px 15px;
 }
 
 .dialog-container.active {
-	display: block;
-	opacity: 1;
+  display: block;
+  opacity: 1;
 }
 
 a.toast-clipboard-error {
-	text-decoration: none;
-	color: #007bff;
+  text-decoration: none;
+  color: #007bff;
 }
 
 a.toast-clipboard-error:hover {
-	color: yellow;
+  color: yellow;
 }
 
 .dialog-images-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .dialog-images-container img {
-	max-width: 100%;
-	margin: 5px;
+  max-width: 100%;
+  margin: 5px;
 }
 
 .dialog-pix-headerline {
-	margin: 15px 15px;
+  margin: 15px 15px;
 }
 
 .dialog-pix-footer {
-	margin: 15px 15px;
+  margin: 15px 15px;
 }
 
 .dialog-close-btn {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	background: none;
-	border: none;
-	color: #555;
-	font-size: 20px;
-	cursor: pointer;
-	transition: color 0.3s ease;
-	margin: 0;
-	padding: 0;
-	border: none;
-	background-color: none;
-	width: 32px;
-	height: 32px;
-	font-size: 16px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: none;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
 }
 
 .dialog-close-btn:hover {
-	color: #fff;
-	background-color: #007bff;
+  color: #fff;
+  background-color: #007bff;
 }
 
 .spinner {
-	animation: spinner 0.8s infinite;
+  animation: spinner 0.8s infinite;
 }
 
 @keyframes spinner {
-	0% {
-		animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
-		cy: 5px;
-	}
+  0% {
+    animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+    cy: 5px;
+  }
 
-	46.875% {
-		cy: 20px;
-		rx: 4px;
-		ry: 4px;
-	}
+  46.875% {
+    cy: 20px;
+    rx: 4px;
+    ry: 4px;
+  }
 
-	50% {
-		animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
-		cy: 20.5px;
-		rx: 4.8px;
-		ry: 3px;
-	}
+  50% {
+    animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+    cy: 20.5px;
+    rx: 4.8px;
+    ry: 3px;
+  }
 
-	53.125% {
-		rx: 4px;
-		ry: 4px;
-	}
+  53.125% {
+    rx: 4px;
+    ry: 4px;
+  }
 
-	100% {
-		cy: 5px;
-	}
+  100% {
+    cy: 5px;
+  }
 }
 
-
 .editor {
-	display: inline-flex;
-	gap: 10px;
-	font-family: monospace;
-	line-height: 21px;
-	border-radius: 2px;
-	padding: 20px 0px;
-	width: 100%;
-	overflow: hidden;
-	/* Hide any overflowing content */
+  display: inline-flex;
+  gap: 10px;
+  font-family: monospace;
+  line-height: 21px;
+  border-radius: 2px;
+  padding: 20px 0px;
+  width: 100%;
+  overflow: hidden;
+  /* Hide any overflowing content */
 }
 
 .line-numbers {
-	width: 20px;
-	text-align: right;
-	overflow-y: hidden;
-	/* Hide any line numbers that may overflow */
+  width: 20px;
+  text-align: right;
+  overflow-y: hidden;
+  /* Hide any line numbers that may overflow */
 }
 
 .line-numbers span {
-	counter-increment: linenumber;
+  counter-increment: linenumber;
 }
 
 .line-numbers span::before {
-	content: counter(linenumber);
-	display: block;
-	color: #506882;
+  content: counter(linenumber);
+  display: block;
+  color: #506882;
 }
 
 #codeInput {
-	border: 1px solid #ccc;
-	background-color: #fff;
-	border-radius: 4px;
-	width: 100%;
-	font-size: 16px;
-	line-height: 21px;
-	overflow-y: scroll;
-	/* Display vertical scrollbar when textarea content overflows */
-	padding: 0;
-	outline: none;
-	resize: none;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  line-height: 21px;
+  overflow-y: scroll;
+  /* Display vertical scrollbar when textarea content overflows */
+  padding: 0;
+  outline: none;
+  resize: none;
 }
 
 .dialog-docs-open-btn {
-	width: 128px;
+  width: 128px;
 }

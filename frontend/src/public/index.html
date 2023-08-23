@@ -1,219 +1,337 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Mimeografo.codes vai criar um print do seu código para você compartilhar."
+    />
+    <meta name="application-name" content="Carbon" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@_whiletruedo" />
+    <meta name="twitter:title" content="mimeografo.codes" />
+    <meta
+      name="twitter:description"
+      content="Mimeografo.codes vai criar um print do seu código para você compartilhar."
+    />
+    <meta
+      name="twitter:image"
+      content="https://mimeografo.codes/images/logo.jpeg"
+    />
+    <meta name="og:title" content="Mimeografo.codes" />
+    <meta
+      name="og:description"
+      content="Mimeografo.codes vai criar um print do seu código para você compartilhar."
+    />
+    <meta name="og:image" content="/images/logo.jpeg" />
+    <meta name="theme-color" content="#121212" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#121212" />
+    <title>mimeografo.codes</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="./css.css" />
+    <script src="./js.js"></script>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="description"
-		content="Mimeografo.codes vai criar um print do seu código para você compartilhar." />
-	<meta name="application-name" content="Carbon" />
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:site" content="@_whiletruedo" />
-	<meta name="twitter:title" content="mimeografo.codes" />
-	<meta name="twitter:description"
-		content="Mimeografo.codes vai criar um print do seu código para você compartilhar." />
-	<meta name="twitter:image" content="https://mimeografo.codes/images/logo.jpeg" />
-	<meta name="og:title" content="Mimeografo.codes" />
-	<meta name="og:description"
-		content="Mimeografo.codes vai criar um print do seu código para você compartilhar." />
-	<meta name="og:image" content="/images/logo.jpeg" />
-	<meta name="theme-color" content="#121212" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="#121212" />
-	<title>mimeografo.codes</title>
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="stylesheet" href="./css.css">
-	<script src="./js.js"></script>
-</head>
+  <body onload="app.initial()">
+    <div id="dialog-container-dialog-docs" class="dialog-container">
+      <div id="dialog-docs" onclick="event.stopPropagation()">
+        <button
+          class="tooltip-btn dialog-close-btn"
+          data-tooltip="Fechar"
+          onclick="app.closeDialog('#dialog-docs')"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <h2 class="text-centered dialog-pix-headerline">Docs</h2>
 
-<body onload="app.initial()">
-	<div id="dialog-container-dialog-docs" class="dialog-container">
-		<div id="dialog-docs" onclick="event.stopPropagation()">
-			<button class="tooltip-btn dialog-close-btn" data-tooltip="Fechar"
-				onclick="app.closeDialog('#dialog-docs')">
-				<i class="fas fa-times"></i>
-			</button>
-			<h2 class="text-centered dialog-pix-headerline">Docs</h2>
+        <p class="text-centered">
+          gente, lembrando, por favor, vamos devagar! vamos evitar DDoS ou sei
+          lá mais o quê.
+        </p>
 
-			<p class="text-centered">gente, lembrando, por favor, vamos devagar! vamos evitar DDoS ou sei lá mais o quê.
-			</p>
+        <h4 class="text-centered">Então, let's bora!</h4>
 
-			<h4 class="text-centered">Então, let's bora!</h4>
+        <h5>Api de criacão</h5>
+        <pre>
+POST /v1/code {"code":"console.log('olá mundo')","title":"olá","parser":"babel"}</pre
+        >
+        <p>Realiza a criacão de uma mimiografagem.</p>
+        <div class="dialog-images-container">
+          <img
+            src="/images/response-code.png"
+            width="950"
+            alt="Imagem da resposta do servidor para a request de criacão"
+          />
+          <img
+            src="/images/source_code_ola.png"
+            alt="Imagem resultante da criacão"
+          />
+        </div>
 
-			<h5>Api de criacão</h5>
-			<pre>POST /v1/code {"code":"console.log('olá mundo')","title":"olá","parser":"babel"}</pre>
-			<p>
-				Realiza a criacão de uma mimiografagem.
-			</p>
-			<div class="dialog-images-container">
-				<img src="/images/response-code.png" width="950"
-					alt="Imagem da resposta do servidor para a request de criacão" />
-				<img src="/images/source_code_ola.png" alt="Imagem resultante da criacão" />
-			</div>
+        <h5>Api para buscar imagem</h5>
+        <pre>GET /v1/image?code=code_id</pre>
+        <p>Retorna a imagem de uma mimiografagem.</p>
+        <div class="text-centered">
+          <img
+            src=" /images/response-code-image.png"
+            width="950"
+            alt="Imagem da resposta do servidor para a request de uma imagem"
+          />
+        </div>
 
-			<h5>Api para buscar imagem</h5>
-			<pre>GET /v1/image?code=code_id</pre>
-			<p>
-				Retorna a imagem de uma mimiografagem.
-			</p>
-			<div class="text-centered">
-				<img src=" /images/response-code-image.png" width="950"
-					alt="Imagem da resposta do servidor para a request de uma imagem" />
-			</div>
+        <h5>Nóis derrliga o freezi a notchê.</h5>
+        <p>
+          Isso significa que para evitar uma alta demanda, nós apagamos todas as
+          imagens do servidor com 5 minutos.
+        </p>
+        <div class="text-centered dialog-docs-footer">
+          <a href="/images/min-ajuda.jpeg" target="_blank">
+            <small>Qualquer valor, mesmo R$ 0,01 já ajuda!</small>
+          </a>
+          <br />
+          <a href="/images/margo.jpeg" target="_blank">
+            <small>R$ 0,01 ou link surpresa?</small>
+          </a>
+        </div>
+      </div>
+    </div>
 
-			<h5>Nóis derrliga o freezi a notchê.</h5>
-			<p>
-				Isso significa que para evitar uma alta demanda, nós apagamos todas as imagens do servidor com 5
-				minutos.
-			</p>
-			<div class="text-centered dialog-docs-footer">
-				<a href="/images/min-ajuda.jpeg" target="_blank">
-					<small>Qualquer valor, mesmo R$ 0,01 já ajuda!</small>
-				</a>
-				<br />
-				<a href="/images/margo.jpeg" target="_blank">
-					<small>R$ 0,01 ou link surpresa?</small>
-				</a>
-			</div>
-		</div>
-	</div>
+    <div id="dialog-container-dialog-pix" class="dialog-container">
+      <div id="dialog-pix" onclick="event.stopPropagation()">
+        <button
+          class="tooltip-btn dialog-close-btn"
+          data-tooltip="Fechar"
+          onclick="app.closeDialog('#dialog-pix')"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+        <h2 class="text-centered dialog-pix-headerline">
+          Attenzione Pickpocket!
+        </h2>
 
-	<div id="dialog-container-dialog-pix" class="dialog-container">
-		<div id="dialog-pix" onclick="event.stopPropagation()">
-			<button class="tooltip-btn dialog-close-btn" data-tooltip="Fechar" onclick="app.closeDialog('#dialog-pix')">
-				<i class="fas fa-times"></i>
-			</button>
-			<h2 class="text-centered dialog-pix-headerline">Attenzione Pickpocket!</h2>
+        <p class="text-centered">
+          gente, eu já gastei US$ 4.18 comprando esse domínio 😢
+        </p>
 
-			<p class="text-centered">gente, eu já gastei US$ 4.18 comprando esse domínio 😢</p>
+        <div class="dialog-images-container">
+          <img
+            src="/images/min-ajuda.jpeg"
+            alt="Preciso de sua ajuda pra continuar alimentando minhas gatas."
+          />
+          <img
+            src="/images/pix--2.png"
+            width="400"
+            alt="Uma esmola pelo amor de deux. Uma esmola minha, por caridade. - Samuel Rosa"
+          />
+        </div>
 
-			<div class="dialog-images-container">
-				<img src="/images/min-ajuda.jpeg" alt="Preciso de sua ajuda pra continuar alimentando minhas gatas.">
-				<img src="/images/pix--2.png" width="400"
-					alt="Uma esmola pelo amor de deux. Uma esmola minha, por caridade. - Samuel Rosa">
-			</div>
+        <div class="text-centered dialog-pix-footer">
+          <small>Qualquer valor, mesmo R$ 0,01 já ajuda!</small>
+        </div>
 
-			<div class="text-centered dialog-pix-footer">
-				<small>Qualquer valor, mesmo R$ 0,01 já ajuda!</small>
-			</div>
+        <div class="text-centered dialog-pix-footer">
+          <a href="/images/margo.jpeg" target="_blank">
+            <small>R$ 0,01 ou link surpresa?</small>
+          </a>
+        </div>
+      </div>
+    </div>
 
-			<div class="text-centered dialog-pix-footer">
-				<a href="/images/margo.jpeg" target="_blank">
-					<small>R$ 0,01 ou link surpresa?</small>
-				</a>
-			</div>
-		</div>
-	</div>
+    <div class="toast" id="toastMessage">Hello, Clarice ;)</div>
+    <div class="container-logo">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="600"
+        height="150"
+        viewBox="0 0 600 150"
+      >
+        <text
+          x="50%"
+          y="50%"
+          fill="none"
+          font-size="96"
+          font-family="Arial"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          stroke="yellow"
+          stroke-width="2"
+        >
+          mimeógrafo
+        </text>
+      </svg>
+    </div>
+    <h2 class="centered-text">
+      Crie uma mimeografagem do seu código e compartilhe com suas amigas, redes
+      sociais e muito mais!
+    </h2>
+    <div class="content-container">
+      <div class="container form-container">
+        <div class="form-inputs">
+          <select id="codeParser" required>
+            <option>Selecione um parser</option>
+            <option value="babel">babel</option>
+            <option value="babel-flo">babel-flo</option>
+            <option value="babel-t">babel-t</option>
+            <option value="flow">flow</option>
+            <option value="typescript">typescript</option>
+            <option value="espree">espree</option>
+            <option value="meriyah">meriyah</option>
+            <option value="acorn">acorn</option>
+            <option value="css">css</option>
+            <option value="scss">scss</option>
+            <option value="less">less</option>
+            <option value="json">json</option>
+            <option value="json5">json5</option>
+            <option value="json-stringif">json-stringif</option>
+            <option value="graphql">graphql</option>
+            <option value="markdown">markdown</option>
+            <option value="mdx">mdx</option>
+            <option value="html">html</option>
+            <option value="vue">vue</option>
+            <option value="angular">angular</option>
+            <option value="lwc">lwc</option>
+            <option value="yaml">yaml</option>
+          </select>
+          <select id="codeBgColor" class="formCodeBgColor" required>
+            <option>Cor de fundo</option>
+            <option style="background-color: #fc8179" value="FC8179">
+              #FC8179
+            </option>
+            <option style="background-color: #ffad00" value="FFAD00">
+              #FFAD00
+            </option>
+            <option style="background-color: #f2f293" value="F2F293">
+              #F2F293
+            </option>
+            <option style="background-color: #33ca00" value="33CA00">
+              #33CA00
+            </option>
+            <option style="background-color: #1293c5" value="1293C5">
+              #1293C5
+            </option>
+            <option style="background-color: #5c30bd" value="5C30BD">
+              #5C30BD
+            </option>
+          </select>
+        </div>
 
-	<div class="toast" id="toastMessage">Hello, Clarice ;)</div>
-	<div class="container-logo">
-		<svg xmlns="http://www.w3.org/2000/svg" width="600" height="150" viewBox="0 0 600 150">
-			<text x="50%" y="50%" fill="none" font-size="96" font-family="Arial" text-anchor="middle"
-				dominant-baseline="middle" stroke="yellow" stroke-width="2">mimeógrafo</text>
-		</svg>
-	</div>
-	<h2 class="centered-text">Crie uma mimeografagem do seu código e compartilhe com suas amigas, redes sociais e muito
-		mais!</h2>
-	<div class="content-container">
-		<div class="container form-container">
-			<div class="form-inputs">
-				<select id="codeParser" required>
-					<option>Selecione um parser</option>
-					<option value="babel">babel</option>
-					<option value="babel-flo">babel-flo</option>
-					<option value="babel-t">babel-t</option>
-					<option value="flow">flow</option>
-					<option value="typescript">typescript</option>
-					<option value="espree">espree</option>
-					<option value="meriyah">meriyah</option>
-					<option value="acorn">acorn</option>
-					<option value="css">css</option>
-					<option value="scss">scss</option>
-					<option value="less">less</option>
-					<option value="json">json</option>
-					<option value="json5">json5</option>
-					<option value="json-stringif">json-stringif</option>
-					<option value="graphql">graphql</option>
-					<option value="markdown">markdown</option>
-					<option value="mdx">mdx</option>
-					<option value="html">html</option>
-					<option value="vue">vue</option>
-					<option value="angular">angular</option>
-					<option value="lwc">lwc</option>
-					<option value="yaml">yaml</option>
-				</select>
-				<select id="codeBgColor" class="formCodeBgColor" required>
-					<option>Cor de fundo</option>
-					<option style="background-color: #FC8179;" value="FC8179">#FC8179</option>
-					<option style="background-color: #FFAD00;" value="FFAD00">#FFAD00</option>
-					<option style="background-color: #F2F293;" value="F2F293">#F2F293</option>
-					<option style="background-color: #33CA00;" value="33CA00">#33CA00</option>
-					<option style="background-color: #1293C5;" value="1293C5">#1293C5</option>
-					<option style="background-color: #5C30BD;" value="5C30BD">#5C30BD</option>
-				</select>
-			</div>
+        <div class="link-container">
+          <small>
+            <a
+              class="parsers-link"
+              href="https://prettier.io/docs/en/options.html#parser"
+              target="_blank"
+              >https://prettier.io/docs/en/options.html#parser</a
+            >
+          </small>
+        </div>
+        <div class="editor">
+          <div class="line-numbers">
+            <span></span>
+          </div>
+          <textarea
+            id="codeInput"
+            rows="20"
+            cols="10"
+            placeholder="/*** Digite seu código ***/"
+          ></textarea>
+        </div>
 
-			<div class="link-container">
-				<small>
-					<a class="parsers-link" href="https://prettier.io/docs/en/options.html#parser"
-						target="_blank">https://prettier.io/docs/en/options.html#parser</a>
-				</small>
-			</div>
-			<div class="editor">
-				<div class="line-numbers">
-					<span></span>
-				</div>
-				<textarea id="codeInput" rows="20" cols="10" placeholder="/*** Digite seu código ***/"></textarea>
-			</div>
+        <button onclick="app.createImage()">Mimeografar</button>
+      </div>
+      <div class="container code-image-container">
+        <div id="code-image-wrapper"></div>
+        <div id="spinner-loader" style="display: none">
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <ellipse class="spinner" cx="12" cy="5" rx="4" ry="4" />
+          </svg>
+        </div>
+        <img src="#" id="code-image-base64" />
+        <div class="buttons-container">
+          <div class="tooltip"></div>
+          <button
+            class="tooltip-btn"
+            data-tooltip="Copiar imagem para o clipboard."
+            onclick="app.copyImageToClipboard()"
+          >
+            <i class="fa-regular fa-image"></i>
+          </button>
+          <button
+            class="tooltip-btn"
+            data-tooltip="Copiar imagem Base64 para o clipboard."
+            onclick="app.copyBase64Image()"
+          >
+            <i class="fa-solid fa-file-code"></i>
+          </button>
+          <button
+            class="tooltip-btn"
+            data-tooltip="Abrir em uma nova aba."
+            onclick="openImageInNewTab()"
+          >
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </button>
+          <button
+            class="tooltip-btn"
+            data-tooltip="Arrume um pixizinho pra esse pobre Diabo :("
+            onclick="openDialog('#dialog-pix')"
+          >
+            <i class="fa-solid fa-qrcode"></i>
+          </button>
 
-			<button onclick="app.createImage()">
-				Mimeografar
-			</button>
-		</div>
-		<div class="container code-image-container">
-			<div id="code-image-wrapper"></div>
-			<div id="spinner-loader" style="display: none;">
-				<svg width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-					<ellipse class="spinner" cx="12" cy="5" rx="4" ry="4" />
-				</svg>
-			</div>
-			<img src="#" id="code-image-base64">
-			<div class="buttons-container">
-				<div class="tooltip"></div>
-				<button class="tooltip-btn" data-tooltip="Copiar imagem para o clipboard."
-					onclick="app.copyImageToClipboard()"><i class="fa-regular fa-image"></i></button>
-				<button class="tooltip-btn" data-tooltip="Copiar imagem Base64 para o clipboard."
-					onclick="app.copyBase64Image()"><i class="fa-solid fa-file-code"></i></button>
-				<button class="tooltip-btn" data-tooltip="Abrir em uma nova aba." onclick="openImageInNewTab()"><i
-						class="fa-solid fa-arrow-up-right-from-square"></i></button>
-				<button class="tooltip-btn" data-tooltip="Arrume um pixizinho pra esse pobre Diabo :("
-					onclick="openDialog('#dialog-pix')"><i class="fa-solid fa-qrcode"></i></button>
-			</div>
-			<button class="tooltip-btn dialog-docs-open-btn"
-				data-tooltip="Sim, dá pra integrar, mas por favor, vamos com muita calma nessa hora 😊"
-				onclick="app.openDialog('#dialog-docs')">
-				Doc <i class="fa-solid fa-book"></i>
-			</button>
-		</div>
-	</div>
-	<div class="container header">
-		<p class="header-text">
-			Mimeógrafo (do grego mimeo: imitar, copiar + grafia: escrita) é um instrumento utilizado para
-			fazer cópias de papel escrito em grande escala e utiliza na reprodução um tipo de papel chamado estêncil.
-			Foi um dos primeiros sistemas de cópias em série utilizados no ensino.
-		</p>
-	</div>
-</body>
-<script src="https://kit.fontawesome.com/b9ae129dcf.js" defer crossorigin="anonymous"></script>
-<script type="text/javascript">
-	(function (c, l, a, r, i, t, y) {
-		c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-		t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-		y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-	})(window, document, "clarity", "script", "i76wpeelyy");
-</script>
-
+          <button
+            class="github"
+            class="tooltip-btn"
+            data-tooltip="Nosso projeto é Open Source :)"
+            onclick="window.location.href='https://github.com/99mvps/mimeografo'"
+          >
+            <i class="fa-solid fa-brands fa-github"></i>
+          </button>
+        </div>
+        <button
+          class="tooltip-btn dialog-docs-open-btn"
+          data-tooltip="Sim, dá pra integrar, mas por favor, vamos com muita calma nessa hora 😊"
+          onclick="app.openDialog('#dialog-docs')"
+        >
+          Doc <i class="fa-solid fa-book"></i>
+        </button>
+      </div>
+    </div>
+    <div class="container header">
+      <p class="header-text">
+        Mimeógrafo (do grego mimeo: imitar, copiar + grafia: escrita) é um
+        instrumento utilizado para fazer cópias de papel escrito em grande
+        escala e utiliza na reprodução um tipo de papel chamado estêncil. Foi um
+        dos primeiros sistemas de cópias em série utilizados no ensino.
+      </p>
+    </div>
+  </body>
+  <script
+    src="https://kit.fontawesome.com/b9ae129dcf.js"
+    defer
+    crossorigin="anonymous"
+  ></script>
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] =
+        c[a] ||
+        function () {
+          (c[a].q = c[a].q || []).push(arguments);
+        };
+      t = l.createElement(r);
+      t.async = 1;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0];
+      y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "i76wpeelyy");
+  </script>
 </html>
