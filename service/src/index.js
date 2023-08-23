@@ -64,9 +64,9 @@ app.get('/health', async (req, res) => {
 });
 
 app.post('/v1/code', async (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE')
-  res.header('Access-Control-Allow-Headers', 'content-type')
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'content-type');
 
   const codeId = crypto.randomBytes(16).toString('hex');
   const {
@@ -81,7 +81,14 @@ app.post('/v1/code', async (req, res) => {
   }
 
   try {
-    const mime = await mimeografo(codeId, code, title, parser, color, customTheme);
+    const mime = await mimeografo(
+      codeId,
+      code,
+      title,
+      parser,
+      color,
+      customTheme,
+    );
 
     res.status(200).json(mime);
   } catch (err) {
@@ -138,9 +145,10 @@ app.get('/v1/image', (req, res) => {
 
 app.use(Sentry.Handlers.errorHandler());
 
-app.use((err, req, res) => {
-  res.statusCode = 500;
-  res.end(`${res.sentry}\n`);
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error!');
+  Sentry.captureException(err);
 });
 
 app.listen(constants.port, () => {

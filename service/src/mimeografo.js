@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const { createCanvas, registerFont } = require('canvas');
+const Sentry = require('@sentry/node');
+
 // eslint-disable-next-line
 const prettier = require('prettier');
 const { constants } = require('./constants');
@@ -186,33 +188,38 @@ async function mimeografo(codeId, code, title, parser, color, customTheme = {}) 
   // Draw the source code image onto the target canvas
   targetCtx.drawImage(sourceCanvas, x, y);
 
-  const imageSourcePath = path.join(__dirname, IMAGE_SERVER_PATH);
-  // Save the image to a file
-  const out = fs.createWriteStream(imageSourcePath);
+  try {
+    const imageSourcePath = path.join(__dirname, IMAGE_SERVER_PATH);
+    // Save the image to a file
+    const out = fs.createWriteStream(imageSourcePath);
 
-  const stream = targetCanvas.createPNGStream();
-  stream.pipe(out);
+    const stream = targetCanvas.createPNGStream();
+    stream.pipe(out);
 
-  return new Promise((resolve) => {
-    out.on('finish', () => {
-      const imageBuffer = fs.readFileSync(imageSourcePath);
-      const base64 = imageBuffer.toString('base64');
-      console.log('MIMEOGRAFO CRIADO', {
-        codeId,
-        code,
-        title,
-        base64: base64.substring(0, 80),
-        imageURI: `${constants.apiURL}/${IMAGE_SERVER_PATH}`,
-      });
-      resolve({
-        codeId,
-        code,
-        title,
-        base64,
-        imageURI: `${constants.apiURL}/${IMAGE_SERVER_PATH}`,
+    return new Promise((resolve) => {
+      out.on('finish', () => {
+        const imageBuffer = fs.readFileSync(imageSourcePath);
+        const base64 = imageBuffer.toString('base64');
+        console.log('MIMEOGRAFO CRIADO', {
+          codeId,
+          code,
+          title,
+          base64: base64.substring(0, 80),
+          imageURI: `${constants.apiURL}/${IMAGE_SERVER_PATH}`,
+        });
+        resolve({
+          codeId,
+          title,
+          code,
+          base64,
+          imageURI: `${constants.apiURL}/${IMAGE_SERVER_PATH}`,
+        });
       });
     });
-  });
+  } catch (error) {
+    Sentry.captureMessage('MIMEOGRAFO_IMAGE_GENERATIOR_ERROR');
+    Sentry.captureException(error);
+  }
 }
 
 module.exports = mimeografo;
